@@ -9,7 +9,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public Rigidbody rb;
     public float gravity; //?
-    public float jumpHeight;
+    public float jumpForce;
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
@@ -19,6 +19,8 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public bool isGrounded;
     private float jumpCountTimer;
+
+    public GameObject mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,7 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
-            rb.velocity = new Vector3(rb.velocity.x, 10, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
@@ -65,5 +67,16 @@ public class playerMovementBehaviour : MonoBehaviour
         }
 
         transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), (hInput * rotationSpeed) * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Lava"))
+        {
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            mainCamera.transform.parent = null;
+            rotationSpeed = 0;
+            jumpForce = 0;
+        }
     }
 }

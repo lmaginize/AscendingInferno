@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 67744653}
   m_Layer: 0
   m_Name: Lava
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,16 +426,17 @@ MonoBehaviour:
   pivotObj: {fileID: 433642712}
   rb: {fileID: 0}
   gravity: 3
-  jumpHeight: 10
+  jumpForce: 10
   groundCheck: {fileID: 2042782420}
   groundDistance: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   isJumping: 0
-  jumpTime: 0
+  jumpTime: 0.5
   canJump: 0
   isGrounded: 0
+  mainCamera: {fileID: 1958396365}
 --- !u!1 &433642712
 GameObject:
   m_ObjectHideFlags: 0
