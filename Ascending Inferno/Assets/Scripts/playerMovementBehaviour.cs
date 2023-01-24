@@ -17,7 +17,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float jumpTime;
     public bool canJump;
 
-    Vector3 velocity;
     public bool isGrounded;
     private float jumpCountTimer;
 
