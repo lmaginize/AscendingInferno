@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerMovementBehaviour : MonoBehaviour
 {
-    public float rotationSpeed;
+    public float moveSpeed;
     public GameObject pivotObj; //The object that this GameObject (the one this script is attached to) will rotate around
 
     public Rigidbody rb;
@@ -21,9 +21,16 @@ public class playerMovementBehaviour : MonoBehaviour
     private float jumpCountTimer;
 
     public float dashAmount;
-    public float dashTime;
     public float startDashTime;
+    public float dashTime;
     public bool isDashing;
+
+    public enum PlayerState
+    {
+        Normal,
+        Cylindrical
+    }
+    public PlayerState pS;
 
     public GameObject mainCamera;
 
@@ -37,6 +44,9 @@ public class playerMovementBehaviour : MonoBehaviour
     void Update()
     {
         float hInput = Input.GetAxisRaw("Horizontal");
+        float vInput = Input.GetAxisRaw("Vertical");
+
+        rb.velocity = new Vector3((hInput * moveSpeed) * Time.deltaTime, rb.velocity.y, (vInput * moveSpeed) * Time.deltaTime);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -45,7 +55,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canJump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
@@ -71,11 +81,10 @@ public class playerMovementBehaviour : MonoBehaviour
             canJump = false;
         }
 
-        transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), (hInput * rotationSpeed) * Time.deltaTime);
-
+        /*
         dashTime -= Time.deltaTime;
 
-        if(Input.GetKeyDown(KeyCode.Q) && isDashing == false)
+        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false)
         {
             dashTime = startDashTime;
         }
@@ -83,14 +92,15 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            rotationSpeed = 100;
+            moveSpeed = 100;
         }
         else
         {
             isDashing = true;
-            transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), dashAmount * Time.deltaTime);
-            rotationSpeed = 0;
+            transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 1), dashAmount * Time.deltaTime);
+            moveSpeed = 0;
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -99,7 +109,7 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
-            rotationSpeed = 0;
+            moveSpeed = 0;
             jumpForce = 0;
         }
     }
