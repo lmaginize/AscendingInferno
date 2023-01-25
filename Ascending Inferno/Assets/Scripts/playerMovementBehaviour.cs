@@ -20,6 +20,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isGrounded;
     private float jumpCountTimer;
 
+    public float dashAmount;
+    public float dashTime;
+    public bool isDashing;
+
     public GameObject mainCamera;
 
     // Start is called before the first frame update
@@ -67,6 +71,8 @@ public class playerMovementBehaviour : MonoBehaviour
         }
 
         transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), (hInput * rotationSpeed) * Time.deltaTime);
+
+        dashTime -= Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
