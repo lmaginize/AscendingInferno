@@ -74,7 +74,6 @@ public class playerMovementBehaviour : MonoBehaviour
             canJump = false;
         }
 
-        /*
         dashTime -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Q) && isDashing == false)
@@ -85,15 +84,14 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            moveSpeed = 100;
+            moveSpeed = 5000;
         }
         else
         {
             isDashing = true;
-            transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 1), dashAmount * Time.deltaTime);
+            rb.velocity = new Vector3(0,0, dashAmount * Time.deltaTime);
             moveSpeed = 0;
         }
-        */
     }
 
     private void OnTriggerEnter(Collider other)
