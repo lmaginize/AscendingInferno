@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &67744649
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -436,6 +436,10 @@ MonoBehaviour:
   jumpTime: 0.5
   canJump: 0
   isGrounded: 0
+  dashAmount: 500
+  dashTime: 0
+  startDashTime: 0.2
+  isDashing: 0
   mainCamera: {fileID: 1958396365}
 --- !u!1 &433642712
 GameObject:

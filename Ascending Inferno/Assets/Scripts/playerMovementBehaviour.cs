@@ -22,6 +22,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public float dashAmount;
     public float dashTime;
+    public float startDashTime;
     public bool isDashing;
 
     public GameObject mainCamera;
@@ -73,6 +74,23 @@ public class playerMovementBehaviour : MonoBehaviour
         transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), (hInput * rotationSpeed) * Time.deltaTime);
 
         dashTime -= Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.Q) && isDashing == false)
+        {
+            dashTime = startDashTime;
+        }
+
+        if (dashTime <= 0)
+        {
+            isDashing = false;
+            rotationSpeed = 100;
+        }
+        else
+        {
+            isDashing = true;
+            transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), dashAmount * Time.deltaTime);
+            rotationSpeed = 0;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
