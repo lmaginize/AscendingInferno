@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22738881185bb40cdbf6e7700eecdb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5000
+  moveSpeed: 3000
   pivotObj: {fileID: 0}
   rb: {fileID: 0}
   gravity: 3
@@ -435,7 +435,7 @@ MonoBehaviour:
   jumpTime: 0.5
   canJump: 0
   isGrounded: 0
-  dashAmount: 500
+  dashAmount: 7500
   startDashTime: 0.3
   dashTime: 0
   isDashing: 0
