@@ -25,13 +25,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float dashTime;
     public bool isDashing;
 
-    public enum PlayerState
-    {
-        Normal,
-        Cylindrical
-    }
-    public PlayerState pS;
-
     public GameObject mainCamera;
 
     // Start is called before the first frame update
@@ -46,7 +39,7 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         float vInput = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector3((hInput * moveSpeed) * Time.deltaTime, rb.velocity.y, (vInput * moveSpeed) * Time.deltaTime);
+        rb.velocity = new Vector3(0, rb.velocity.y, (hInput * moveSpeed) * Time.deltaTime);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
