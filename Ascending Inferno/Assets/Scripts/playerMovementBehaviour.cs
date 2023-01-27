@@ -15,12 +15,15 @@ public class playerMovementBehaviour : MonoBehaviour
     public LayerMask groundMask;
     public bool isJumping;
     public float jumpTime;
+    public bool canMove;
     public bool canJump;
+    public bool canDash = true;
 
     public bool isGrounded;
     private float jumpCountTimer;
 
-    public float dashAmount;
+    public float dashXAmount;
+    public float dashYAmount;
     public float startDashTime;
     public float dashTime;
     public bool isDashing;
@@ -41,7 +44,7 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         float vInput = Input.GetAxisRaw("Vertical");
 
-        if(isDashing == false)
+        if(canMove == true)
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, (hInput * moveSpeed) * Time.deltaTime);
         }
@@ -51,6 +54,7 @@ public class playerMovementBehaviour : MonoBehaviour
         if (isGrounded)
         {
             canJump = true;
+            canDash = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
@@ -81,7 +85,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         dashTime -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false)
+        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false && canDash == true)
         {
             dashTime = startDashTime;
             dashZ = Input.GetAxisRaw("Horizontal");
@@ -91,14 +95,21 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            //rb.velocity = new Vector3(0, (dashY * dashAmount) * Time.deltaTime, (dashZ * dashAmount) * Time.deltaTime);
+            canMove = true;
             moveSpeed = 5000;
         }
         else
         {
+            canDash = false;
             isDashing = true;
+            canMove = false;
             isJumping = false;
-            rb.velocity = new Vector3(rb.velocity.x, (dashY * dashAmount) * Time.deltaTime, (dashZ * dashAmount) * Time.deltaTime);
+            if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            {
+                dashY = 0;
+                dashZ = 1;
+            }
+            rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
             moveSpeed = 0;
         }
     }
