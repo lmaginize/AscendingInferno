@@ -5,10 +5,9 @@ using UnityEngine;
 public class playerMovementBehaviour : MonoBehaviour
 {
     public float moveSpeed;
-    public GameObject pivotObj; //The object that this GameObject (the one this script is attached to) will rotate around
+    //public GameObject pivotObj; //The object that this GameObject (the one this script is attached to) will rotate around
 
     public Rigidbody rb;
-    public float gravity; //?
     public float jumpForce;
     public Transform groundCheck;
     public float groundDistance;
@@ -42,11 +41,11 @@ public class playerMovementBehaviour : MonoBehaviour
     void Update()
     {
         float hInput = Input.GetAxisRaw("Horizontal");
-        float vInput = Input.GetAxisRaw("Vertical");
+        //float vInput = Input.GetAxisRaw("Vertical");
 
         if(canMove == true)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, (hInput * moveSpeed) * Time.deltaTime);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -96,7 +95,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isDashing = false;
             canMove = true;
-            moveSpeed = 5000;
         }
         else
         {
@@ -110,7 +108,6 @@ public class playerMovementBehaviour : MonoBehaviour
                 dashZ = 1;
             }
             rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
-            moveSpeed = 0;
         }
     }
 
@@ -120,7 +117,7 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
-            moveSpeed = 0;
+            canMove = false;
             jumpForce = 0;
         }
     }
