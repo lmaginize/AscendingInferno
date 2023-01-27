@@ -24,6 +24,8 @@ public class playerMovementBehaviour : MonoBehaviour
     public float startDashTime;
     public float dashTime;
     public bool isDashing;
+    public float dashY;
+    public float dashZ;
 
     public GameObject mainCamera;
 
@@ -39,7 +41,10 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         float vInput = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = new Vector3(0, rb.velocity.y, (hInput * moveSpeed) * Time.deltaTime);
+        if(isDashing == false)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, (hInput * moveSpeed) * Time.deltaTime);
+        }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -79,17 +84,21 @@ public class playerMovementBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && isDashing == false)
         {
             dashTime = startDashTime;
+            dashZ = Input.GetAxisRaw("Horizontal");
+            dashY = Input.GetAxisRaw("Vertical");
         }
 
         if (dashTime <= 0)
         {
             isDashing = false;
+            //rb.velocity = new Vector3(0, (dashY * dashAmount) * Time.deltaTime, (dashZ * dashAmount) * Time.deltaTime);
             moveSpeed = 5000;
         }
         else
         {
             isDashing = true;
-            rb.velocity = new Vector3(0,0, dashAmount * Time.deltaTime);
+            isJumping = false;
+            rb.velocity = new Vector3(rb.velocity.x, (dashY * dashAmount) * Time.deltaTime, (dashZ * dashAmount) * Time.deltaTime);
             moveSpeed = 0;
         }
     }
