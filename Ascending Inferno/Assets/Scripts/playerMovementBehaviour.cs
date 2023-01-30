@@ -72,7 +72,8 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = false;
             canMove = false;
             canDash = false;
-            canJump = true;
+
+            rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
         } else
         {
             canFall = true;
@@ -141,11 +142,6 @@ public class playerMovementBehaviour : MonoBehaviour
         if(canFall == true)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
-        } else
-        {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
