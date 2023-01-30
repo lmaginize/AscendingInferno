@@ -548,6 +548,8 @@ MonoBehaviour:
   dashY: 0
   dashZ: 0
   mainCamera: {fileID: 1958396365}
+  bounce: {fileID: 13400000, guid: bfbd72f7d5d428b4fa5db30425fad261, type: 2}
+  spiked: 0
 --- !u!1 &425522615
 GameObject:
   m_ObjectHideFlags: 0
