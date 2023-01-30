@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class playerMovementBehaviour : MonoBehaviour
 {
-    public float rotationSpeed;
-    public GameObject pivotObj; //The object that this GameObject (the one this script is attached to) will rotate around
+    public float moveSpeed;
+    //public GameObject pivotObj; //The object that this GameObject (the one this script is attached to) will rotate around
 
     public Rigidbody rb;
-    public float gravity; //?
     public float jumpForce;
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
     public bool isJumping;
     public float jumpTime;
+    public bool canMove;
     public bool canJump;
+    public bool canDash = true;
 
     public bool isGrounded;
     private float jumpCountTimer;
+
+    public float dashXAmount;
+    public float dashYAmount;
+    public float startDashTime;
+    public float dashTime;
+    public bool isDashing;
+    public float dashY;
+    public float dashZ;
 
     public GameObject mainCamera;
 
@@ -32,15 +41,22 @@ public class playerMovementBehaviour : MonoBehaviour
     void Update()
     {
         float hInput = Input.GetAxisRaw("Horizontal");
+        //float vInput = Input.GetAxisRaw("Vertical");
+
+        if(canMove == true)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
+        }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded)
         {
             canJump = true;
+            canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
@@ -66,7 +82,33 @@ public class playerMovementBehaviour : MonoBehaviour
             canJump = false;
         }
 
-        transform.RotateAround(pivotObj.transform.position, new Vector3(0, 1, 0), (hInput * rotationSpeed) * Time.deltaTime);
+        dashTime -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false && canDash == true)
+        {
+            dashTime = startDashTime;
+            dashZ = Input.GetAxisRaw("Horizontal");
+            dashY = Input.GetAxisRaw("Vertical");
+        }
+
+        if (dashTime <= 0)
+        {
+            isDashing = false;
+            canMove = true;
+        }
+        else
+        {
+            canDash = false;
+            isDashing = true;
+            canMove = false;
+            isJumping = false;
+            if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            {
+                dashY = 0;
+                dashZ = 1;
+            }
+            rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,7 +117,7 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
-            rotationSpeed = 0;
+            canMove = false;
             jumpForce = 0;
         }
     }
