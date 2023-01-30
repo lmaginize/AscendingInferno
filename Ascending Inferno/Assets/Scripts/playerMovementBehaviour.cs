@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovementBehaviour : MonoBehaviour
@@ -31,15 +29,13 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public GameObject mainCamera;
 
-   /* public PhysicMaterial bounce;
-    public bool spiked; */
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        canMove = true;
-        /* spiked = false; */
+       
     }
 
     // Update is called once per frame
@@ -48,7 +44,7 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
 
-        if(canMove == true)
+        if (canMove == true)
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
         }
@@ -96,24 +92,24 @@ public class playerMovementBehaviour : MonoBehaviour
             dashY = Input.GetAxisRaw("Vertical");
         }
 
-      /*   if (dashTime <= 0 && spiked == false)
-        {
-            isDashing = false;
-            canMove = true;
-        }
-        else
-        {
-            canDash = false;
-            isDashing = true;
-            canMove = false;
-            isJumping = false;
-            if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
-            {
-                dashY = 0;
-                dashZ = 1;
-            }
-            rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
-        } */
+           if (dashTime <= 0)
+          {
+              isDashing = false;
+              canMove = true;
+          }
+          else
+          {
+              canDash = false;
+              isDashing = true;
+              canMove = false;
+              isJumping = false;
+              if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+              {
+                  dashY = 0;
+                  dashZ = 1;
+              }
+              rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+          } 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -126,38 +122,5 @@ public class playerMovementBehaviour : MonoBehaviour
             jumpForce = 0;
         }
 
-      /*  if (other.gameObject.CompareTag("Spike"))
-        {
-            canMove = false;
-            spiked = true;
-            GetComponent<Collider>().material = bounce;
-
-            Invoke("UnSpike", 1f);
-
-            print("Yoink");
-        } */
-
     }
-
-    /*private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Spike"))
-        {
-            canMove = false;
-            GetComponent<Collider>().material = bounce;
-
-            Invoke("UnSpike", 1f);
-
-            print("Yoink");
-        }
-
-    } */
-  /*  public void UnSpike()
-    {
-        canMove = true;
-        spiked = false;
-        GetComponent<Collider>().material = null;
-
-        print("Fine Now");
-    } */
 }
