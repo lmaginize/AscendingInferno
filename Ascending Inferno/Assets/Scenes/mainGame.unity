@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
+  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -547,6 +547,7 @@ MonoBehaviour:
   isDashing: 0
   dashY: 0
   dashZ: 0
+  gravityScale: 2.75
   mainCamera: {fileID: 1958396365}
 --- !u!1 &425522615
 GameObject:
