@@ -71,11 +71,15 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             canFall = false;
             canMove = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
+            canDash = false;
+            canJump = true;
+        } else
         {
             canFall = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || isHangingOntoLedge))
+        {
             isJumping = true;
             jumpCountTimer = jumpTime;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
@@ -85,7 +89,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             if (jumpCountTimer > 0)
             {
-                //rb.velocity = new Vector3(rb.velocity.x, 10, rb.velocity.z);
                 jumpCountTimer -= Time.deltaTime;
             }
             else
