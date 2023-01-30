@@ -141,6 +141,11 @@ public class playerMovementBehaviour : MonoBehaviour
         if(canFall == true)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
+        } else
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 
