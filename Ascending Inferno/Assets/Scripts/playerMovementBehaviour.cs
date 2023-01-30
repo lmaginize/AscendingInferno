@@ -18,6 +18,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJump;
     public bool canDash = true;
 
+    public Transform ledgeCheck;
+    public float ledgeDistance;
+    public bool isHangingOntoLedge;
+
     public bool isGrounded;
     private float jumpCountTimer;
 
@@ -31,6 +35,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
+    public bool canFall;
 
     public GameObject mainCamera;
 
@@ -60,8 +65,17 @@ public class playerMovementBehaviour : MonoBehaviour
             canDash = true;
         }
 
+        isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
+
+        if(isHangingOntoLedge)
+        {
+            canFall = false;
+            canMove = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
         {
+            canFall = true;
             isJumping = true;
             jumpCountTimer = jumpTime;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
@@ -88,7 +102,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         dashTime -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
             dashTime = startDashTime;
             dashZ = Input.GetAxisRaw("Horizontal");
@@ -98,7 +112,10 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            canMove = true;
+            if(isHangingOntoLedge == false)
+            {
+                canMove = true;
+            }
         }
         else
         {
@@ -118,7 +135,10 @@ public class playerMovementBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        rb.AddForce(gravity, ForceMode.Acceleration);
+        if(canFall == true)
+        {
+            rb.AddForce(gravity, ForceMode.Acceleration);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

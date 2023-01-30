@@ -540,6 +540,9 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canDash: 0
+  ledgeCheck: {fileID: 2097120660}
+  ledgeDistance: 0.3
+  isHangingOntoLedge: 0
   isGrounded: 0
   dashXAmount: 25
   dashYAmount: 10
@@ -549,6 +552,7 @@ MonoBehaviour:
   dashY: 0
   dashZ: 0
   gravityScale: 2.75
+  canFall: 1
   mainCamera: {fileID: 1958396365}
 --- !u!1 &425522615
 GameObject:
