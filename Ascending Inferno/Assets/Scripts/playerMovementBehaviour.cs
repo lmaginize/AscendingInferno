@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovementBehaviour : MonoBehaviour
@@ -16,6 +18,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJump;
     public bool canDash = true;
 
+    public Transform ledgeCheck;
+    public float ledgeDistance;
+    public bool isHangingOntoLedge;
+
     public bool isGrounded;
     private float jumpCountTimer;
 
@@ -27,17 +33,17 @@ public class playerMovementBehaviour : MonoBehaviour
     public float dashY;
     public float dashZ;
 
-    public GameObject mainCamera;
+    public float gravityScale;
+    public static float globalGravity = -9.81f;
+    public bool canFall;
 
-    public PhysicMaterial bounce;
-    public bool spiked;
+    public GameObject mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        canMove = true;
-        spiked = false;
+        rb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -46,7 +52,7 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
 
-        if (canMove == true)
+        if(canMove == true)
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
         }
@@ -59,7 +65,21 @@ public class playerMovementBehaviour : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
+        isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
+
+        if(isHangingOntoLedge)
+        {
+            canFall = false;
+            canMove = false;
+            canDash = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
+        } else
+        {
+            canFall = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || isHangingOntoLedge))
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
@@ -70,7 +90,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             if (jumpCountTimer > 0)
             {
-                //rb.velocity = new Vector3(rb.velocity.x, 10, rb.velocity.z);
                 jumpCountTimer -= Time.deltaTime;
             }
             else
@@ -87,17 +106,20 @@ public class playerMovementBehaviour : MonoBehaviour
 
         dashTime -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
             dashTime = startDashTime;
             dashZ = Input.GetAxisRaw("Horizontal");
             dashY = Input.GetAxisRaw("Vertical");
         }
 
-        if (dashTime <= 0 && spiked == false)
+        if (dashTime <= 0)
         {
             isDashing = false;
-            canMove = true;
+            if(isHangingOntoLedge == false)
+            {
+                canMove = true;
+            }
         }
         else
         {
@@ -105,12 +127,21 @@ public class playerMovementBehaviour : MonoBehaviour
             isDashing = true;
             canMove = false;
             isJumping = false;
-            if (dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
             {
                 dashY = 0;
                 dashZ = 1;
             }
             rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        if(canFall == true)
+        {
+            rb.AddForce(gravity, ForceMode.Acceleration);
         }
     }
 
@@ -123,39 +154,5 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = false;
             jumpForce = 0;
         }
-
-        if (other.gameObject.CompareTag("Spike"))
-        {
-            canMove = false;
-            spiked = true;
-            GetComponent<Collider>().material = bounce;
-
-            Invoke("UnSpike", 1f);
-
-            print("Yoink");
-        }
-
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Spike"))
-        {
-            canMove = false;
-            GetComponent<Collider>().material = bounce;
-
-            Invoke("UnSpike", 1f);
-
-            print("Yoink");
-        }
-
-    }
-    public void UnSpike()
-    {
-        canMove = true;
-        spiked = false;
-        GetComponent<Collider>().material = null;
-
-        print("Fine Now");
     }
 }
