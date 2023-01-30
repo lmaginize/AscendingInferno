@@ -31,6 +31,7 @@ public class GHookBehaviour : MonoBehaviour
                 grapplePoint = hit.point;
                 hook.transform.position = hit.point;
                 hook.SetActive(true);
+                rope.enabled = true;
                 rope.SetPosition(0, player.transform.position);
                 rope.SetPosition(1, grapplePoint);
             }
@@ -44,6 +45,7 @@ public class GHookBehaviour : MonoBehaviour
         {
             isGrappling = false;
             hook.SetActive(false);
+            rope.enabled = false;
         }
         
     }
