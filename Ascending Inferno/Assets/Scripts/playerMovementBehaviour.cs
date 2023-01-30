@@ -18,6 +18,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJump;
     public bool canDash = true;
 
+    public Transform playerTransform;
     public Transform ledgeCheck;
     public float ledgeDistance;
     public bool isHangingOntoLedge;
@@ -44,6 +45,8 @@ public class playerMovementBehaviour : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
+        playerTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -72,8 +75,11 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = false;
             canMove = false;
             canDash = false;
+            canJump = true;
 
-            rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         } else
         {
             canFall = true;
@@ -152,7 +158,7 @@ public class playerMovementBehaviour : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
             canMove = false;
-            jumpForce = 0;
+            canJump = false;
         }
     }
 }
