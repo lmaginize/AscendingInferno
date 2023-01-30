@@ -6,11 +6,9 @@ public class healthScript : MonoBehaviour
 {
     public int health = 3;
     int maxHealth;
-    gameObject Player;
 
     void start(){
-        Player = GameObject.FindGameObjectWithTag("Player");
-        maxHealth == health;
+        
     }
 
     void update(){
@@ -28,8 +26,7 @@ public class healthScript : MonoBehaviour
     }
 
     public void die(){
-        if(health <= 0 && Player){
-            debug.log("DEAD!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        if(health <= 0){
         }
     }
 
