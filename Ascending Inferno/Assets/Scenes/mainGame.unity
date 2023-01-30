@@ -548,6 +548,7 @@ MonoBehaviour:
   dashY: 0
   dashZ: 0
   mainCamera: {fileID: 1958396365}
+<<<<<<< HEAD
 --- !u!1 &425522615
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +969,10 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0.578, y: -88.243, z: 0.986}
+=======
+  bounce: {fileID: 13400000, guid: 8d24f6430adcbb0428bdd06075d18bbb, type: 2}
+  spiked: 0
+>>>>>>> Eric
 --- !u!1001 &833777691
 PrefabInstance:
   m_ObjectHideFlags: 0
