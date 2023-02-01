@@ -564,12 +564,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hook: {fileID: 1298543834}
-  player: {fileID: 409145761}
+  rb: {fileID: 409145766}
   rope: {fileID: 409145769}
-  grappleSpeed: 20
+  grappleSpeed: 15
   grappleLayer:
     serializedVersion: 2
     m_Bits: 65
+  cooldownTime: 2
 --- !u!120 &409145769
 LineRenderer:
   serializedVersion: 2
@@ -1282,7 +1283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1298543835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1363,7 +1364,7 @@ Transform:
   m_GameObject: {fileID: 1298543834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 409145765}

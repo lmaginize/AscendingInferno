@@ -5,48 +5,49 @@ using UnityEngine;
 public class GHookBehaviour : MonoBehaviour
 {
     public GameObject hook;
-    public GameObject player;
+    public Rigidbody rb;
     public LineRenderer rope;
     public float grappleSpeed = 3.0f;
     public LayerMask grappleLayer;
+    public float cooldownTime = 2.0f;
 
     private bool isGrappling = false;
     private Vector3 grapplePoint;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float cooldown = 0f;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetMouseButtonDown(1) && cooldown <= 0f)
         {
             RaycastHit hit;
-            if (Physics.Raycast(player.transform.position, player.transform.up, out hit, Mathf.Infinity, grappleLayer))
+            if (Physics.Raycast(transform.position, transform.up, out hit, Mathf.Infinity, grappleLayer))
             {
                 isGrappling = true;
                 grapplePoint = hit.point;
                 hook.transform.position = hit.point;
                 hook.SetActive(true);
                 rope.enabled = true;
-                rope.SetPosition(0, player.transform.position);
+                rope.SetPosition(0, transform.position);
                 rope.SetPosition(1, grapplePoint);
+               
             }
         }
         if (isGrappling)
         {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, grapplePoint, grappleSpeed * Time.deltaTime);
+            Vector3 direction = (grapplePoint - transform.position).normalized;
+            rb.AddForce(direction * grappleSpeed, ForceMode.Acceleration);
+            rope.SetPosition(0, transform.position);
+            rope.SetPosition(1, grapplePoint);
         }
         
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetMouseButtonUp(1) || (grapplePoint - transform.position).magnitude <= 0.1f)
         {
             isGrappling = false;
             hook.SetActive(false);
             rope.enabled = false;
+            cooldown = cooldownTime;
         }
-        
+        cooldown -= Time.deltaTime;
     }
 }
