@@ -30,7 +30,8 @@ public class GHookBehaviour : MonoBehaviour
                 rope.enabled = true;
                 rope.SetPosition(0, transform.position);
                 rope.SetPosition(1, grapplePoint);
-               
+                cooldown = cooldownTime;
+
             }
         }
         if (isGrappling)
@@ -46,8 +47,12 @@ public class GHookBehaviour : MonoBehaviour
             isGrappling = false;
             hook.SetActive(false);
             rope.enabled = false;
-            cooldown = cooldownTime;
+            
         }
-        cooldown -= Time.deltaTime;
+
+        if (cooldown > 0)
+        {
+            cooldown -= Time.deltaTime;
+        }
     }
 }
