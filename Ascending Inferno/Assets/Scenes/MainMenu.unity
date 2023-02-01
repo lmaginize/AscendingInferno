@@ -667,7 +667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Acending Inferno
+  m_text: 'Ascending Inferno
 
 '
   m_isRightToLeft: 0
