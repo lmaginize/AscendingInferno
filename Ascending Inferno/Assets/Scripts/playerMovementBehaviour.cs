@@ -93,11 +93,10 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isHangingOntoLedge)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezePosition;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-            rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
+            //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
 
             canFall = false;
             canDash = false;
@@ -106,12 +105,14 @@ public class playerMovementBehaviour : MonoBehaviour
             canJumpOffLedge = true;
         } else
         {
-            canFall = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             canMove = true;
             canJump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || canJumpOffLedge))
+        if (Input.GetKeyDown(KeyCode.W) && canJump == true && (isGrounded || canJumpOffLedge))
         {
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
             canFall = true;
@@ -121,7 +122,7 @@ public class playerMovementBehaviour : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        if (Input.GetKey(KeyCode.W) && isJumping == true)
         {
             if (jumpCountTimer > 0)
             {
@@ -133,7 +134,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             isJumping = false;
             canJump = false;
