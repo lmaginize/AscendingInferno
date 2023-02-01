@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -22,5 +23,11 @@ public class NewBehaviourScript : MonoBehaviour
             endPopUp.SetActive(true);
             Destroy(endPopUp, 3);
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
+   
 }

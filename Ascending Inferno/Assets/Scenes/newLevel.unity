@@ -950,9 +950,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuBehaviour, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 269883754}
+        m_TargetAssemblyTypeName: PauseMenuBehaviour, Assembly-CSharp
+        m_MethodName: Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8323,7 +8323,7 @@ MonoBehaviour:
 
     Dash - Q
 
-    Grapling
+    Grapling - RMB
 
 '
   m_isRightToLeft: 0
