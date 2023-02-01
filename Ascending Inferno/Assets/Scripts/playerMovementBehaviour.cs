@@ -59,7 +59,7 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
 
-        if(canMove == true)
+        if (canMove == true)
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
         }
@@ -74,7 +74,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
 
-        if(isHangingOntoLedge)
+        if (isHangingOntoLedge)
         {
             isScalingLedge = true;
         }
@@ -82,7 +82,7 @@ public class playerMovementBehaviour : MonoBehaviour
         RaycastHit groundCheckForNothingWhileScaling;
 
         if (isScalingLedge)
-        { 
+        {
             //groundDistance = 0.3f;
             canFall = false;
             canMove = false;
@@ -93,11 +93,13 @@ public class playerMovementBehaviour : MonoBehaviour
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * groundCheckForNothingWhileScaling.distance);
                 Debug.Log("Start moving forward");
                 //rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 1);
-            } else
+            }
+            else
             {
                 rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
             }
-        } else
+        }
+        else
         {
             canFall = true;
         }
@@ -139,7 +141,7 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            if(isHangingOntoLedge == false)
+            if (isHangingOntoLedge == false)
             {
                 canMove = true;
             }
@@ -150,7 +152,7 @@ public class playerMovementBehaviour : MonoBehaviour
             isDashing = true;
             canMove = false;
             isJumping = false;
-            if(dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            if (dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
             {
                 dashY = 0;
                 dashZ = 1;
@@ -162,7 +164,7 @@ public class playerMovementBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        if(canFall == true)
+        if (canFall == true)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
         }
@@ -170,7 +172,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.gameObject.CompareTag("Lava"))
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
@@ -181,15 +183,17 @@ public class playerMovementBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Spike"))
         {
             health--;
-            if(health <= 0){
+            if (health <= 0)
+            {
                 gameObject.GetComponent<CapsuleCollider>().enabled = false;
                 mainCamera.transform.parent = null;
                 canMove = false;
                 jumpForce = 0;
             }
-        if(other.gameObject.CompareTag("EndTrigger"))
-        {
-            isDone = true;
+            if (other.gameObject.CompareTag("EndTrigger"))
+            {
+                isDone = true;
+            }
         }
     }
 }

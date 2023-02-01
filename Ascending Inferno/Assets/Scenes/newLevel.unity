@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
+  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4009,13 +4009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8932dc650fe9e34488174d16c848009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hook: {fileID: 1162832923}
-  player: {fileID: 1073038807}
-  rope: {fileID: 1073038808}
-  grappleSpeed: 20
-  grappleLayer:
-    serializedVersion: 2
-    m_Bits: 65
 --- !u!114 &1073038810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4041,6 +4034,11 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canDash: 0
+  playerTransform: {fileID: 0}
+  ledgeCheck: {fileID: 1347168025}
+  ledgeDistance: 0
+  isHangingOntoLedge: 0
+  isScalingLedge: 0
   isGrounded: 0
   dashXAmount: 25
   dashYAmount: 10
@@ -4049,6 +4047,9 @@ MonoBehaviour:
   isDashing: 0
   dashY: 0
   dashZ: 0
+  health: 3
+  gravityScale: 0
+  canFall: 0
   mainCamera: {fileID: 121912828}
 --- !u!54 &1073038811
 Rigidbody:
@@ -4164,6 +4165,7 @@ Transform:
   m_Children:
   - {fileID: 121912831}
   - {fileID: 990946570}
+  - {fileID: 1347168025}
   - {fileID: 1162832927}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -5116,6 +5118,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0.578, y: -88.243, z: 0.986}
+--- !u!1 &1347168024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347168025}
+  m_Layer: 0
+  m_Name: ledgeCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347168025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347168024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.58, y: 0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1073038815}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362548406
 GameObject:
   m_ObjectHideFlags: 0
