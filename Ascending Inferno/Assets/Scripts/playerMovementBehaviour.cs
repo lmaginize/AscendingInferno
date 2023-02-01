@@ -47,6 +47,8 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public static bool isDone;
 
+    public AudioClip JumpSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -111,6 +113,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || canJumpOffLedge))
         {
+            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
             canFall = true;
             isJumping = true;
             canJumpOffLedge = false;
