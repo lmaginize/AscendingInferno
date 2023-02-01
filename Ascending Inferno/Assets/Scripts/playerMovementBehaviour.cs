@@ -40,6 +40,8 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public GameObject mainCamera;
 
+    public static bool isDone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -165,6 +167,9 @@ public class playerMovementBehaviour : MonoBehaviour
                 canMove = false;
                 jumpForce = 0;
             }
+        if(other.gameObject.CompareTag("EndTrigger"))
+        {
+            isDone = true;
         }
     }
 }
