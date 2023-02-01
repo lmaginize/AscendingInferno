@@ -18,6 +18,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJump;
     public bool canDash = true;
 
+    public Transform ledgeCheck;
+    public float ledgeDistance;
+    public bool isHangingOntoLedge;
+
     public bool isGrounded;
     private float jumpCountTimer;
 
@@ -28,13 +32,21 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isDashing;
     public float dashY;
     public float dashZ;
+    public int health = 3;
+
+    public float gravityScale;
+    public static float globalGravity = -9.81f;
+    public bool canFall;
 
     public GameObject mainCamera;
+
+    public static bool isDone;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -56,7 +68,21 @@ public class playerMovementBehaviour : MonoBehaviour
             canDash = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
+        isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
+
+        if(isHangingOntoLedge)
+        {
+            canFall = false;
+            canMove = false;
+            canDash = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
+        } else
+        {
+            canFall = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || isHangingOntoLedge))
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
@@ -67,7 +93,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             if (jumpCountTimer > 0)
             {
-                //rb.velocity = new Vector3(rb.velocity.x, 10, rb.velocity.z);
                 jumpCountTimer -= Time.deltaTime;
             }
             else
@@ -84,7 +109,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         dashTime -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Q) && isDashing == false && canDash == true)
+        if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
             dashTime = startDashTime;
             dashZ = Input.GetAxisRaw("Horizontal");
@@ -94,7 +119,10 @@ public class playerMovementBehaviour : MonoBehaviour
         if (dashTime <= 0)
         {
             isDashing = false;
-            canMove = true;
+            if(isHangingOntoLedge == false)
+            {
+                canMove = true;
+            }
         }
         else
         {
@@ -111,14 +139,37 @@ public class playerMovementBehaviour : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        if(canFall == true)
+        {
+            rb.AddForce(gravity, ForceMode.Acceleration);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("Lava"))
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
             canMove = false;
             jumpForce = 0;
+        }
+        if (other.gameObject.CompareTag("Spike"))
+        {
+            health--;
+            if(health <= 0){
+                gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                mainCamera.transform.parent = null;
+                canMove = false;
+                jumpForce = 0;
+            }
+        if(other.gameObject.CompareTag("EndTrigger"))
+        {
+            isDone = true;
         }
     }
 }
