@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
+  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3901,7 +3901,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073038807}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3914,7 +3914,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8dcbb0c7d096c3843af599eae44e0db8, type: 2}
+  - {fileID: 2100000, guid: 873c32a8f0274c2489afd7e4e9f93bea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4009,6 +4009,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8932dc650fe9e34488174d16c848009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hook: {fileID: 1162832923}
+  rb: {fileID: 1073038811}
+  rope: {fileID: 1073038808}
+  grappleSpeed: 15
+  grappleLayer:
+    serializedVersion: 2
+    m_Bits: 65
+  cooldownTime: 3
 --- !u!114 &1073038810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4549,7 +4557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1162832924
 BoxCollider:
   m_ObjectHideFlags: 0
