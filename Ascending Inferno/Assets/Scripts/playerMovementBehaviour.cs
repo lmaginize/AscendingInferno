@@ -22,6 +22,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public Transform ledgeCheck;
     public float ledgeDistance;
     public bool isHangingOntoLedge;
+    public bool isScalingLedge;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -72,20 +73,33 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if(isHangingOntoLedge)
         {
+            isScalingLedge = true;
+        }
+
+        RaycastHit groundCheckForNothingWhileScaling;
+
+        if (isScalingLedge)
+        { 
+            //groundDistance = 0.3f;
             canFall = false;
             canMove = false;
             canDash = false;
-            canJump = true;
-
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            canJump = false;
+            if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out groundCheckForNothingWhileScaling, Mathf.Infinity, groundMask))
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * groundCheckForNothingWhileScaling.distance);
+                Debug.Log("Start moving forward");
+                //rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 1);
+            } else
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
+            }
         } else
         {
             canFall = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || isHangingOntoLedge))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
         {
             isJumping = true;
             jumpCountTimer = jumpTime;
