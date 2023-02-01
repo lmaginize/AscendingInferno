@@ -4034,6 +4034,7 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canDash: 0
+  ledgeCheckAnim: {fileID: 0}
   isPlayerFacingRight: 0
   playerTransform: {fileID: 0}
   ledgeCheck: {fileID: 1347168025}
@@ -6005,7 +6006,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797542500}
   m_LocalRotation: {x: -0.008522967, y: 0.015290148, z: 0.0051753656, w: 0.9998334}
-  m_LocalPosition: {x: -14.241733, y: 35.1, z: -52.8}
+  m_LocalPosition: {x: -14.24, y: 35.1, z: -52.91}
   m_LocalScale: {x: 5.61, y: 0.2024, z: 8.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
