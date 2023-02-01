@@ -32,6 +32,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isDashing;
     public float dashY;
     public float dashZ;
+    public int health = 3;
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
@@ -147,12 +148,23 @@ public class playerMovementBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("Lava"))
         {
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
             canMove = false;
             jumpForce = 0;
+        }
+        if (other.gameObject.CompareTag("Spike"))
+        {
+            health--;
+            if(health <= 0){
+                gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                mainCamera.transform.parent = null;
+                canMove = false;
+                jumpForce = 0;
+            }
         }
     }
 }
