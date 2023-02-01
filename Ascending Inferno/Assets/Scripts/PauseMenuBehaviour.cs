@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuBehaviour : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class PauseMenuBehaviour : MonoBehaviour
         Resume(); // resets vars just in case
     }
 
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
     private void Update()
     {
