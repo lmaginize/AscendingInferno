@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
+  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5276,7 +5276,7 @@ MonoBehaviour:
   dashY: 0
   dashZ: 0
   health: 3
-  gravityScale: 2
+  gravityScale: 3
   canFall: 1
   mainCamera: {fileID: 121912828}
   JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
@@ -5652,7 +5652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c3d37a3e834778b9929e05da30aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lavaSpeed: 691.5
+  lavaSpeed: 100
   lavaRB: {fileID: 1085249774}
 --- !u!65 &1085249776
 BoxCollider:
