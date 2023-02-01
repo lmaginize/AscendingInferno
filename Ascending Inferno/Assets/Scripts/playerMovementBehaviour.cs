@@ -18,11 +18,14 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJump;
     public bool canDash = true;
 
+    public Animator ledgeCheckAnim;
+    public bool isPlayerFacingRight;
     public Transform playerTransform;
     public Transform ledgeCheck;
     public float ledgeDistance;
     public bool isHangingOntoLedge;
-    public bool isScalingLedge;
+    public bool canJumpOffLedge;
+    public float ledgeClimbSpeed;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -38,8 +41,8 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
-    public bool canFall;
-
+    public bool canFall = true;
+    
     public GameObject mainCamera;
 
     public static bool isDone;
@@ -49,8 +52,10 @@ public class playerMovementBehaviour : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+        isPlayerFacingRight = true;
 
         playerTransform = GetComponent<Transform>();
+        ledgeCheckAnim = ledgeCheck.gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -58,6 +63,16 @@ public class playerMovementBehaviour : MonoBehaviour
     {
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
+
+        if (hInput < 0)
+        {
+            isPlayerFacingRight = false;
+            ledgeCheckAnim.Play("ledgeCheckLeft");
+        } else if(hInput > 0)
+        {
+            isPlayerFacingRight = true;
+            ledgeCheckAnim.Play("ledgeCheckRight");
+        }
 
         if (canMove == true)
         {
@@ -76,37 +91,29 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isHangingOntoLedge)
         {
-            isScalingLedge = true;
-        }
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        RaycastHit groundCheckForNothingWhileScaling;
+            rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
 
-        if (isScalingLedge)
-        {
-            //groundDistance = 0.3f;
             canFall = false;
-            canMove = false;
             canDash = false;
+            canMove = false;
             canJump = false;
-            if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out groundCheckForNothingWhileScaling, Mathf.Infinity, groundMask))
-            {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * groundCheckForNothingWhileScaling.distance);
-                Debug.Log("Start moving forward");
-                //rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, 1);
-            }
-            else
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 1, rb.velocity.z);
-            }
-        }
-        else
+            canJumpOffLedge = true;
+        } else
         {
             canFall = true;
+            canMove = true;
+            canJump = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || canJumpOffLedge))
         {
+            canFall = true;
             isJumping = true;
+            canJumpOffLedge = false;
             jumpCountTimer = jumpTime;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
@@ -164,7 +171,7 @@ public class playerMovementBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        if (canFall == true)
+        if(canFall)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
         }

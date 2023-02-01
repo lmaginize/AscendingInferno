@@ -326,8 +326,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60337521}
   m_LocalRotation: {x: -0.0023669149, y: -0.6961779, z: 0.009685665, w: 0.7178001}
-  m_LocalPosition: {x: -15.2, y: -1.8, z: -76.2}
-  m_LocalScale: {x: 5.61, y: 0.2024, z: 2.57}
+  m_LocalPosition: {x: -15.23, y: -2.22, z: -77.29}
+  m_LocalScale: {x: 9.06, y: 0.261792, z: 2.57}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 165647212}
   - component: {fileID: 165647211}
   - component: {fileID: 165647210}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 171417995}
   - component: {fileID: 171417994}
   - component: {fileID: 171417993}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 244083725}
   - component: {fileID: 244083724}
   - component: {fileID: 244083723}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1237,7 +1237,7 @@ GameObject:
   - component: {fileID: 345044984}
   - component: {fileID: 345044983}
   - component: {fileID: 345044982}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1342,7 +1342,7 @@ GameObject:
   - component: {fileID: 376016117}
   - component: {fileID: 376016116}
   - component: {fileID: 376016115}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 453338930}
   - component: {fileID: 453338929}
   - component: {fileID: 453338928}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1657,7 +1657,7 @@ GameObject:
   - component: {fileID: 462911146}
   - component: {fileID: 462911145}
   - component: {fileID: 462911144}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1705,7 +1705,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1810,7 +1810,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2077,7 +2077,7 @@ GameObject:
   - component: {fileID: 578286765}
   - component: {fileID: 578286764}
   - component: {fileID: 578286763}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2182,7 +2182,7 @@ GameObject:
   - component: {fileID: 630914979}
   - component: {fileID: 630914978}
   - component: {fileID: 630914977}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2497,7 +2497,7 @@ GameObject:
   - component: {fileID: 644197137}
   - component: {fileID: 644197136}
   - component: {fileID: 644197135}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2602,7 +2602,7 @@ GameObject:
   - component: {fileID: 692131674}
   - component: {fileID: 692131673}
   - component: {fileID: 692131672}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2707,7 +2707,7 @@ GameObject:
   - component: {fileID: 699917203}
   - component: {fileID: 699917202}
   - component: {fileID: 699917201}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3011,7 +3011,7 @@ GameObject:
   - component: {fileID: 786712769}
   - component: {fileID: 786712768}
   - component: {fileID: 786712767}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3326,7 +3326,7 @@ GameObject:
   - component: {fileID: 857866289}
   - component: {fileID: 857866288}
   - component: {fileID: 857866287}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3431,7 +3431,7 @@ GameObject:
   - component: {fileID: 894088615}
   - component: {fileID: 894088614}
   - component: {fileID: 894088613}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4034,11 +4034,13 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canDash: 0
+  isPlayerFacingRight: 0
   playerTransform: {fileID: 0}
   ledgeCheck: {fileID: 1347168025}
   ledgeDistance: 0
   isHangingOntoLedge: 0
-  isScalingLedge: 0
+  canJumpOffLedge: 0
+  ledgeClimbSpeed: 1.5
   isGrounded: 0
   dashXAmount: 25
   dashYAmount: 10
@@ -4048,8 +4050,8 @@ MonoBehaviour:
   dashY: 0
   dashZ: 0
   health: 3
-  gravityScale: 0
-  canFall: 0
+  gravityScale: 2
+  canFall: 1
   mainCamera: {fileID: 121912828}
 --- !u!54 &1073038811
 Rigidbody:
@@ -4645,7 +4647,7 @@ GameObject:
   - component: {fileID: 1179171362}
   - component: {fileID: 1179171361}
   - component: {fileID: 1179171360}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4855,7 +4857,7 @@ GameObject:
   - component: {fileID: 1250590273}
   - component: {fileID: 1250590272}
   - component: {fileID: 1250590271}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,8 +4943,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250590270}
   m_LocalRotation: {x: -0.7069613, y: 0.014345843, z: 0.014345843, w: 0.7069613}
-  m_LocalPosition: {x: -80.48, y: 15.1, z: 67}
-  m_LocalScale: {x: 5.61, y: 5, z: 27.96}
+  m_LocalPosition: {x: -80.4756, y: 15.1, z: 67.1076}
+  m_LocalScale: {x: 5.3682094, y: 4.7845, z: 26.754923}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5025,7 +5027,7 @@ GameObject:
   - component: {fileID: 1294768672}
   - component: {fileID: 1294768671}
   - component: {fileID: 1294768670}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5073,7 +5075,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5127,6 +5129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347168025}
+  - component: {fileID: 1347168026}
   m_Layer: 0
   m_Name: ledgeCheck
   m_TagString: Untagged
@@ -5149,6 +5152,26 @@ Transform:
   m_Father: {fileID: 1073038815}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1347168026
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347168024}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3e0e2a7f10f744f1f9ba3881df6df043, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1362548406
 GameObject:
   m_ObjectHideFlags: 0
@@ -5371,7 +5394,7 @@ GameObject:
   - component: {fileID: 1618672610}
   - component: {fileID: 1618672609}
   - component: {fileID: 1618672608}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5419,7 +5442,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5476,7 +5499,7 @@ GameObject:
   - component: {fileID: 1713499376}
   - component: {fileID: 1713499375}
   - component: {fileID: 1713499374}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5524,7 +5547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5771,7 +5794,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1757225066}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: -1}
   m_LocalPosition: {x: 14.85, y: 21.5, z: -24.3}
   m_LocalScale: {x: 125.57291, y: 10, z: -150}
   m_ConstrainProportionsScale: 0
@@ -6001,7 +6024,7 @@ GameObject:
   - component: {fileID: 1822253630}
   - component: {fileID: 1822253629}
   - component: {fileID: 1822253628}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6049,7 +6072,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a667969b842b4baea692371e583de0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6106,7 +6129,7 @@ GameObject:
   - component: {fileID: 1854608365}
   - component: {fileID: 1854608364}
   - component: {fileID: 1854608363}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6316,7 +6339,7 @@ GameObject:
   - component: {fileID: 1893103967}
   - component: {fileID: 1893103966}
   - component: {fileID: 1893103965}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6421,7 +6444,7 @@ GameObject:
   - component: {fileID: 2015617549}
   - component: {fileID: 2015617548}
   - component: {fileID: 2015617547}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6526,7 +6549,7 @@ GameObject:
   - component: {fileID: 2143702105}
   - component: {fileID: 2143702104}
   - component: {fileID: 2143702103}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Right Arrow (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
