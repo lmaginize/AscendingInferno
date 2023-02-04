@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 public class GameController : MonoBehaviour
-{
-   
+{  
     public GameObject startPopUp,endPopUp;
-
+    [SerializeField] GameObject endTrigger;
     public TMP_Text health;
     private playerMovementBehaviour playerScript;
     void Start()
@@ -23,8 +22,12 @@ public class GameController : MonoBehaviour
 
         if(playerMovementBehaviour.isDone)
         {
-            endPopUp.SetActive(true);
-            Destroy(endPopUp, 3);
+            if(endPopUp!= null)
+            {
+                endPopUp.SetActive(true);
+                Destroy(endPopUp, 3);
+                endTrigger.SetActive(false);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R))
