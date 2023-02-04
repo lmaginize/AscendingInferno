@@ -48,10 +48,11 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
-
+    private GameController gc;
     // Start is called before the first frame update
     void Start()
     {
+        gc = FindObjectOfType<GameController>();
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
@@ -190,19 +191,26 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = false;
             canJump = false;
         }
+
+        if (other.gameObject.CompareTag("EndTrigger"))
+        {
+            isDone = true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.CompareTag("Spike"))
         {
             health--;
+            gc.UpdateHealthUI();
+
             if (health <= 0)
             {
                 gameObject.GetComponent<CapsuleCollider>().enabled = false;
                 mainCamera.transform.parent = null;
                 canMove = false;
                 jumpForce = 0;
-            }
-            if (other.gameObject.CompareTag("EndTrigger"))
-            {
-                isDone = true;
             }
         }
     }

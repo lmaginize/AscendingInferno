@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class NewBehaviourScript : MonoBehaviour
+using TMPro;
+public class GameController : MonoBehaviour
 {
-    //The lava is rising pop up
+   
     public GameObject startPopUp,endPopUp;
 
+    public TMP_Text health;
+    private playerMovementBehaviour playerScript;
     void Start()
     {
+        playerScript = FindObjectOfType<playerMovementBehaviour>();
         playerMovementBehaviour.isDone = false;
     }
 
@@ -28,6 +31,11 @@ public class NewBehaviourScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void UpdateHealthUI()
+    {
+        health.text = "Health: " + playerScript.health;
     }
    
 }
