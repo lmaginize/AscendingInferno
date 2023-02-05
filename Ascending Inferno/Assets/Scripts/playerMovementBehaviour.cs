@@ -118,11 +118,9 @@ public class playerMovementBehaviour : MonoBehaviour
             //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
 
             canFall = false;
-            canDash = false;
             canMove = false;
-            jumpForce = 15;
-            canJump = true;
-            canJumpOffLedge = true;
+            canDash = true;
+            //canJumpOffLedge = true;
         } else
         {
             rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -133,33 +131,32 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && canJump == true && (isGrounded || canJumpOffLedge))
+        if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true) //&& (isGrounded || canJumpOffLedge))
         {
-            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
-            canFall = true;
-            isJumping = true;
-            canJumpOffLedge = false;
-            jumpCountTimer = jumpTime;
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            if(dashZ == 0)
+            {
+                AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
+                dashTime = startDashTime;
+                dashY = 1;
+            }
+            //canFall = true;
+            //isDashing = true;
+            //canJumpOffLedge = false;
+            //jumpCountTimer = jumpTime;
+            //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
-        if (Input.GetKey(KeyCode.W) && isJumping == true)
+        /*
+        if (Input.GetKey(KeyCode.W) && isDashing == true)
         {
-            if (jumpCountTimer > 0)
-            {
-                jumpCountTimer -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
+            isDashing = false;
         }
 
         if (Input.GetKeyUp(KeyCode.W))
         {
-            isJumping = false;
-            canJump = false;
+            isDashing = false;
         }
+        */
 
         dashTime -= Time.deltaTime;
 
