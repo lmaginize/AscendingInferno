@@ -2035,7 +2035,7 @@ GameObject:
   - component: {fileID: 491326171}
   - component: {fileID: 491326170}
   - component: {fileID: 491326169}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Platform (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4317,6 +4317,7 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canDash: 0
+  playerMat: {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
   ledgeCheckAnim: {fileID: 0}
   isPlayerFacingRight: 0
   playerTransform: {fileID: 0}
@@ -4333,6 +4334,8 @@ MonoBehaviour:
   isDashing: 0
   dashY: 0
   dashZ: 0
+  dashCoolDownTime: 1
+  dashCoolDownCountDown: 0
   health: 3
   gravityScale: 3
   canFall: 1
@@ -4408,7 +4411,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

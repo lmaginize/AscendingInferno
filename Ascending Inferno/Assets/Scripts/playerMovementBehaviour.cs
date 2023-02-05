@@ -17,6 +17,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canMove;
     public bool canJump;
     public bool canDash = true;
+    public Material playerMat;
 
     public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
@@ -37,7 +38,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isDashing;
     public float dashY;
     public float dashZ;
+    public float dashCoolDownTime;
+    public float dashCoolDownCountDown;
     public int health = 3;
+
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
@@ -67,6 +71,8 @@ public class playerMovementBehaviour : MonoBehaviour
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
 
+        dashCoolDownCountDown -= Time.deltaTime;
+
         if (hInput < 0)
         {
             isPlayerFacingRight = false;
@@ -87,22 +93,35 @@ public class playerMovementBehaviour : MonoBehaviour
         if (isGrounded)
         {
             canJump = true;
-            canDash = true;
+            if(dashCoolDownCountDown <= 0)
+            {
+                canDash = true;
+            }
+        }
+
+        if(isDashing == false && isHangingOntoLedge == false)
+        {
+            playerMat.color = Color.white;
         }
 
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
 
         if (isHangingOntoLedge)
         {
-            rb.constraints = RigidbodyConstraints.FreezePosition;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionY;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+            playerMat.color = Color.blue;
 
             //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
 
             canFall = false;
             canDash = false;
             canMove = false;
-            canJump = false;
+            jumpForce = 15;
+            canJump = true;
             canJumpOffLedge = true;
         } else
         {
@@ -111,6 +130,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
             canMove = true;
             canJump = true;
+            canFall = true;
         }
 
         if (Input.GetKeyDown(KeyCode.W) && canJump == true && (isGrounded || canJumpOffLedge))
@@ -160,23 +180,32 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         else
         {
-            canDash = false;
-            isDashing = true;
-            canMove = false;
-            isJumping = false;
-            if (dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            if(dashY != 0 || dashZ != 0 || (dashY >= 1 && dashZ <= 0))
             {
-                dashY = 0;
-                dashZ = 1;
+                dashCoolDownCountDown = dashCoolDownTime;
+                canDash = false;
+                isDashing = true;
+                canMove = false;
+                isJumping = false;
+                playerMat.color = Color.green;
+                rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
             }
-            rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+        }
+
+        if (health <= 0)
+        {
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            mainCamera.transform.parent = null;
+            canMove = false;
+            jumpForce = 0;
+            Time.timeScale = 0f;
         }
     }
 
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        if(canFall)
+        if(canFall == true)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
         }
@@ -191,6 +220,7 @@ public class playerMovementBehaviour : MonoBehaviour
             mainCamera.transform.parent = null;
             canMove = false;
             canJump = false;
+            health = 0;
         }
 
         if (other.gameObject.CompareTag("EndTrigger"))
@@ -205,14 +235,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             health--;
             gc.UpdateHealthUI();
-
-            if (health <= 0)
-            {
-                gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                mainCamera.transform.parent = null;
-                canMove = false;
-                jumpForce = 0;
-            }
         }
     }
 }
