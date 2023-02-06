@@ -4287,7 +4287,7 @@ MonoBehaviour:
   hook: {fileID: 1162832923}
   rb: {fileID: 1073038811}
   rope: {fileID: 1073038808}
-  grappleSpeed: 15
+  grappleSpeed: 50
   grappleLayer:
     serializedVersion: 2
     m_Bits: 65
@@ -4673,7 +4673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1085249774
 Rigidbody:
   m_ObjectHideFlags: 0

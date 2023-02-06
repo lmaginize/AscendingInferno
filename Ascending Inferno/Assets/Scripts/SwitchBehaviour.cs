@@ -24,6 +24,7 @@ public class SwitchBehaviour : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
         MovingPlatform mp = Platform.GetComponent<MovingPlatform>();
+        lavaBehaviour lb = Lava.GetComponent<lavaBehaviour>();
         if (collision.gameObject.Equals(player))
         {
             if (switchType == 0)
@@ -33,6 +34,11 @@ public class SwitchBehaviour : MonoBehaviour
             if (switchType == 1)
             {
                 mp.active = true;
+            }
+            if (switchType == 2)
+            {
+                lb.lavaSpeed = 0;
+                lb.Invoke("LavaReset", 5f);
             }
         }
     }

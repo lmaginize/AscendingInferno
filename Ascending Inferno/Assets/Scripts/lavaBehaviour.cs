@@ -6,10 +6,12 @@ public class lavaBehaviour : MonoBehaviour
 {
     public float lavaSpeed;
     public Rigidbody lavaRB;
+    private float defaultLavaSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        defaultLavaSpeed = lavaSpeed;
         lavaRB = GetComponent<Rigidbody>();
     }
 
@@ -17,5 +19,10 @@ public class lavaBehaviour : MonoBehaviour
     void Update()
     {
         lavaRB.velocity = new Vector3(0,lavaSpeed * Time.deltaTime,0);
+    }
+
+    public void LavaReset()
+    {
+        lavaSpeed = defaultLavaSpeed;
     }
 }
