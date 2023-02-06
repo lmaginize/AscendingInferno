@@ -17,6 +17,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canMove;
     public bool canJump;
     public bool canDash = true;
+    public Material playerMat;
 
     public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
@@ -37,7 +38,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isDashing;
     public float dashY;
     public float dashZ;
+    public float dashCoolDownTime;
+    public float dashCoolDownCountDown;
     public int health = 3;
+
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
@@ -48,10 +52,11 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
-
+    private GameController gc;
     // Start is called before the first frame update
     void Start()
     {
+        gc = FindObjectOfType<GameController>();
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
@@ -65,6 +70,8 @@ public class playerMovementBehaviour : MonoBehaviour
     {
         float hInput = Input.GetAxisRaw("Horizontal");
         //float vInput = Input.GetAxisRaw("Vertical");
+
+        dashCoolDownCountDown -= Time.deltaTime;
 
         if (hInput < 0)
         {
@@ -86,7 +93,15 @@ public class playerMovementBehaviour : MonoBehaviour
         if (isGrounded)
         {
             canJump = true;
-            canDash = true;
+            if(dashCoolDownCountDown <= 0)
+            {
+                canDash = true;
+            }
+        }
+
+        if(isDashing == false && isHangingOntoLedge == false)
+        {
+            playerMat.color = Color.white;
         }
 
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
@@ -94,50 +109,54 @@ public class playerMovementBehaviour : MonoBehaviour
         if (isHangingOntoLedge)
         {
             rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionY;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-            rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
+            playerMat.color = Color.blue;
+
+            //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
 
             canFall = false;
-            canDash = false;
             canMove = false;
-            canJump = false;
-            canJumpOffLedge = true;
+            canDash = true;
+            //canJumpOffLedge = true;
         } else
         {
-            canFall = true;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             canMove = true;
             canJump = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true && (isGrounded || canJumpOffLedge))
-        {
-            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
             canFall = true;
-            isJumping = true;
-            canJumpOffLedge = false;
-            jumpCountTimer = jumpTime;
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true) //&& (isGrounded || canJumpOffLedge))
         {
-            if (jumpCountTimer > 0)
+            if(dashZ == 0)
             {
-                jumpCountTimer -= Time.deltaTime;
+                AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
+                dashTime = startDashTime;
+                dashY = 1;
             }
-            else
-            {
-                isJumping = false;
-            }
+            //canFall = true;
+            //isDashing = true;
+            //canJumpOffLedge = false;
+            //jumpCountTimer = jumpTime;
+            //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        /*
+        if (Input.GetKey(KeyCode.W) && isDashing == true)
         {
-            isJumping = false;
-            canJump = false;
+            isDashing = false;
         }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            isDashing = false;
+        }
+        */
 
         dashTime -= Time.deltaTime;
 
@@ -158,23 +177,32 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         else
         {
-            canDash = false;
-            isDashing = true;
-            canMove = false;
-            isJumping = false;
-            if (dashY == 0 && dashZ == 0) //Sets the default dash to a forward horizontal dash if the player has no directional input
+            if(dashY != 0 || dashZ != 0 || (dashY >= 1 && dashZ <= 0))
             {
-                dashY = 0;
-                dashZ = 1;
+                dashCoolDownCountDown = dashCoolDownTime;
+                canDash = false;
+                isDashing = true;
+                canMove = false;
+                isJumping = false;
+                playerMat.color = Color.green;
+                rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
             }
-            rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+        }
+
+        if (health <= 0)
+        {
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            mainCamera.transform.parent = null;
+            canMove = false;
+            jumpForce = 0;
+            Time.timeScale = 0f;
         }
     }
 
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        if(canFall)
+        if(canFall == true)
         {
             rb.AddForce(gravity, ForceMode.Acceleration);
         }
@@ -189,21 +217,21 @@ public class playerMovementBehaviour : MonoBehaviour
             mainCamera.transform.parent = null;
             canMove = false;
             canJump = false;
+            health = 0;
         }
+
+        if (other.gameObject.CompareTag("EndTrigger"))
+        {
+            isDone = true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.CompareTag("Spike"))
         {
             health--;
-            if (health <= 0)
-            {
-                gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                mainCamera.transform.parent = null;
-                canMove = false;
-                jumpForce = 0;
-            }
-            if (other.gameObject.CompareTag("EndTrigger"))
-            {
-                isDone = true;
-            }
+            gc.UpdateHealthUI();
         }
     }
 }
