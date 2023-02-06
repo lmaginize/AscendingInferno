@@ -53,6 +53,12 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public AudioClip JumpSound;
     private GameController gc;
+
+    public PhysicMaterial bounceMat;
+    public PhysicMaterial normalMat;
+
+    public bool invincible;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +66,8 @@ public class playerMovementBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
+
+        playerMat.color = Color.white;
 
         playerTransform = GetComponent<Transform>();
         ledgeCheckAnim = ledgeCheck.gameObject.GetComponent<Animator>();
@@ -99,7 +107,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if(isDashing == false && isHangingOntoLedge == false)
+        if(isDashing == false && isHangingOntoLedge == false && invincible == false)
         {
             playerMat.color = Color.white;
         }
@@ -224,14 +232,41 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isDone = true;
         }
+
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = bounceMat;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = normalMat;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Spike"))
         {
-            health--;
-            gc.UpdateHealthUI();
+            if (invincible == false)
+            {
+                health--;
+                invincible = true;
+                playerMat.color = Color.yellow;
+                gc.UpdateHealthUI();
+
+                Invoke("Uninvincible", 1f);
+            }
+           
         }
+    }
+
+    public void Uninvincible()
+    {
+        invincible = false;
+        playerMat.color = Color.white;
     }
 }
