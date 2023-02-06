@@ -4451,7 +4451,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65
   cooldownTime: 3
-  Grapple: {fileID: 0}
+  grapple: {fileID: 1073038818}
 --- !u!114 &1073038810
 MonoBehaviour:
   m_ObjectHideFlags: 0
