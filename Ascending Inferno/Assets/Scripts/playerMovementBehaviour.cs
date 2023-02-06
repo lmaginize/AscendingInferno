@@ -52,11 +52,13 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
+    public healthKit hk;
     private GameController gc;
     // Start is called before the first frame update
     void Start()
     {
         gc = FindObjectOfType<GameController>();
+        hk = FindObjectOfType<healthKit>();
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
@@ -232,6 +234,16 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             health--;
             gc.UpdateHealthUI();
+        }
+
+        if (other.gameObject.CompareTag("HealthKit"))
+        {
+            if(health < 3){
+                health++;
+                gc.UpdateHealthUI();
+                hk.OnPickup();
+            }
+
         }
     }
 }
