@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
+  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4305,7 +4305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rb: {fileID: 0}
+  rb: {fileID: 1073038811}
   jumpForce: 10
   groundCheck: {fileID: 990946570}
   groundDistance: 0.3
@@ -4320,7 +4320,7 @@ MonoBehaviour:
   playerMat: {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
   ledgeCheckAnim: {fileID: 0}
   isPlayerFacingRight: 0
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 1073038815}
   ledgeCheck: {fileID: 1347168025}
   ledgeDistance: 0
   isHangingOntoLedge: 0
