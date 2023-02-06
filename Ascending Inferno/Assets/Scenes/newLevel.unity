@@ -4357,7 +4357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rb: {fileID: 1073038811}
-  jumpForce: 10
+  jumpForce: 7
   groundCheck: {fileID: 990946570}
   groundDistance: 0.3
   groundMask:
