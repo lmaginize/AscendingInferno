@@ -4342,7 +4342,7 @@ MonoBehaviour:
     m_Bits: 65
   cooldownTime: 3
   range: 8
-  grapple: {fileID: 0}
+  grapple: {fileID: 1073038816}
 --- !u!114 &1073038810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4357,7 +4357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rb: {fileID: 1073038811}
-  jumpForce: 10
+  jumpForce: 7
   groundCheck: {fileID: 990946570}
   groundDistance: 0.3
   groundMask:

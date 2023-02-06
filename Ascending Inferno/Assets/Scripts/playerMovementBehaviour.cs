@@ -123,11 +123,10 @@ public class playerMovementBehaviour : MonoBehaviour
 
             playerMat.color = Color.blue;
 
-            //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
-
             canFall = false;
             canMove = false;
-            canDash = true;
+            canDash = false;
+            canJump = true;
             canJumpOffLedge = true;
         } else
         {
@@ -135,7 +134,6 @@ public class playerMovementBehaviour : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             canMove = true;
-            canJump = true;
             canFall = true;
         }
 
