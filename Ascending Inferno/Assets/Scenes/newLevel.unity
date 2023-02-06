@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44927716, g: 0.49608922, b: 0.55819577, a: 1}
+  m_IndirectSpecularColor: {r: 0.4492768, g: 0.4960888, b: 0.55819476, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4388,7 +4388,7 @@ MonoBehaviour:
   dashCoolDownTime: 1
   dashCoolDownCountDown: 0
   health: 3
-  gravityScale: 3
+  gravityScale: 5
   canFall: 1
   mainCamera: {fileID: 121912828}
   JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
@@ -4823,7 +4823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1085249774
 Rigidbody:
   m_ObjectHideFlags: 0
