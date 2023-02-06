@@ -53,6 +53,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public AudioClip JumpSound;
     private GameController gc;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +121,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = false;
             canMove = false;
             canDash = true;
-            //canJumpOffLedge = true;
+            canJumpOffLedge = true;
         } else
         {
             rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -131,11 +132,10 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true) //&& (isGrounded || canJumpOffLedge))
+        /*if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true && (isGrounded || canJumpOffLedge))
         {
             if(dashZ == 0)
             {
-                AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
                 dashTime = startDashTime;
                 dashY = 1;
             }
@@ -144,6 +144,36 @@ public class playerMovementBehaviour : MonoBehaviour
             //canJumpOffLedge = false;
             //jumpCountTimer = jumpTime;
             //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }*/
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        {
+            isJumping = true;
+            jumpCountTimer = jumpTime;
+            canFall = false;
+            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpCountTimer > 0)
+            {
+                canFall = false;
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                jumpCountTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+                canFall = true;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+            canJump = false;
         }
 
         /*
