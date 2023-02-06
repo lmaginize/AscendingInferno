@@ -14,6 +14,7 @@ public class GHookBehaviour : MonoBehaviour
     private bool isGrappling = false;
     private Vector3 grapplePoint;
     private float cooldown = 0f;
+    public float range;
 
     public AudioSource grapple;
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class GHookBehaviour : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && cooldown <= 0f)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.up, out hit, Mathf.Infinity, grappleLayer))
+            if (Physics.Raycast(transform.position, transform.up, out hit, range, grappleLayer))
             {
                 isGrappling = true;
                 grapplePoint = hit.point;
