@@ -23,13 +23,17 @@ public class SwitchBehaviour : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        MovingPlatform mp = Platform.GetComponent<MovingPlatform>();
         if (collision.gameObject.Equals(player))
         {
             if (switchType == 0)
             {
                 Door.SetActive(false);
             }
-            
+            if (switchType == 1)
+            {
+                mp.active = true;
+            }
         }
     }
 }
