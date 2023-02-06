@@ -15,6 +15,7 @@ public class GHookBehaviour : MonoBehaviour
     private Vector3 grapplePoint;
     private float cooldown = 0f;
 
+    public AudioSource grapple;
     // Update is called once per frame
     void Update()
     {
@@ -31,6 +32,7 @@ public class GHookBehaviour : MonoBehaviour
                 rope.SetPosition(0, transform.position);
                 rope.SetPosition(1, grapplePoint);
                 cooldown = cooldownTime;
+                grapple.Play();
 
             }
         }
