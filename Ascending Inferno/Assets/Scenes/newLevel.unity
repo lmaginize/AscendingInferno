@@ -4341,7 +4341,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65
   cooldownTime: 3
-  Grapple: {fileID: 0}
+  range: 8
+  grapple: {fileID: 0}
 --- !u!114 &1073038810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4391,8 +4392,8 @@ MonoBehaviour:
   canFall: 1
   mainCamera: {fileID: 121912828}
   JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
-  bounceMat: {fileID: 13400000, guid: bfbd72f7d5d428b4fa5db30425fad261, type: 2}
-  normalMat: {fileID: 13400000, guid: 3806e8e1df22948b8a064b378efba69d, type: 2}
+  bounceMat: {fileID: 0}
+  normalMat: {fileID: 0}
   invincible: 0
 --- !u!54 &1073038811
 Rigidbody:
