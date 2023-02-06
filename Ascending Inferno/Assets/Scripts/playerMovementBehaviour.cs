@@ -53,6 +53,12 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public AudioClip JumpSound;
     private GameController gc;
+
+    public PhysicMaterial bounceMat;
+    public PhysicMaterial normalMat;
+
+    public bool invincible;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +66,8 @@ public class playerMovementBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
+
+        playerMat.color = Color.white;
 
         playerTransform = GetComponent<Transform>();
         ledgeCheckAnim = ledgeCheck.gameObject.GetComponent<Animator>();
@@ -99,7 +107,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if(isDashing == false && isHangingOntoLedge == false)
+        if(isDashing == false && isHangingOntoLedge == false && invincible == false)
         {
             playerMat.color = Color.white;
         }
@@ -120,7 +128,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = false;
             canMove = false;
             canDash = true;
-            //canJumpOffLedge = true;
+            canJumpOffLedge = true;
         } else
         {
             rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -131,6 +139,46 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        {
+            isJumping = true;
+            jumpCountTimer = jumpTime;
+            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpCountTimer > 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                jumpCountTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+            canJump = false;
+        }
+
+        /*
+        if (Input.GetKey(KeyCode.W) && isDashing == true)
+        {
+            isDashing = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            isDashing = false;
+        }
+        */
+
+        /*
         if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true) //&& (isGrounded || canJumpOffLedge))
         {
             if(dashZ == 0)
@@ -145,6 +193,7 @@ public class playerMovementBehaviour : MonoBehaviour
             //jumpCountTimer = jumpTime;
             //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
+        */
 
         /*
         if (Input.GetKey(KeyCode.W) && isDashing == true)
@@ -162,9 +211,9 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
-            dashTime = startDashTime;
-            dashZ = Input.GetAxisRaw("Horizontal");
             dashY = Input.GetAxisRaw("Vertical");
+            dashZ = Input.GetAxisRaw("Horizontal");
+            dashTime = startDashTime;
         }
 
         if (dashTime <= 0)
@@ -177,7 +226,7 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         else
         {
-            if(dashY != 0 || dashZ != 0 || (dashY >= 1 && dashZ <= 0))
+            if (!(dashY == 0 && dashZ == 0) && !(dashY >= 1 && dashZ == 0)) //Checks for no input at all, as well as just pressing up
             {
                 dashCoolDownCountDown = dashCoolDownTime;
                 canDash = false;
@@ -187,6 +236,11 @@ public class playerMovementBehaviour : MonoBehaviour
                 playerMat.color = Color.green;
                 rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
             }
+            else
+            {
+                dashTime = 0;
+            }
+
         }
 
         if (health <= 0)
@@ -224,14 +278,41 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isDone = true;
         }
+
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = bounceMat;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = normalMat;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Spike"))
         {
-            health--;
-            gc.UpdateHealthUI();
+            if (invincible == false)
+            {
+                health--;
+                invincible = true;
+                playerMat.color = Color.yellow;
+                gc.UpdateHealthUI();
+
+                Invoke("Uninvincible", 1f);
+            }
+           
         }
+    }
+
+    public void Uninvincible()
+    {
+        invincible = false;
+        playerMat.color = Color.white;
     }
 }
