@@ -17,6 +17,8 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canMove;
     public bool canJump;
     public bool canDash = true;
+    public float timesJumped;
+    public float maxAmountOfJumps;
     public Material playerMat;
 
     public Animator ledgeCheckAnim;
@@ -100,6 +102,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isGrounded)
         {
+            timesJumped = 0;
             canJump = true;
             if(dashCoolDownCountDown <= 0)
             {
@@ -116,6 +119,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isHangingOntoLedge)
         {
+            timesJumped = 1;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
             rb.constraints = RigidbodyConstraints.FreezePositionY;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
@@ -137,8 +141,14 @@ public class playerMovementBehaviour : MonoBehaviour
             canFall = true;
         }
 
+        if(timesJumped < maxAmountOfJumps)
+        {
+            canJump = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
         {
+            timesJumped++;
             isJumping = true;
             jumpCountTimer = jumpTime;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
