@@ -192,9 +192,9 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
-            dashTime = startDashTime;
-            dashZ = Input.GetAxisRaw("Horizontal");
             dashY = Input.GetAxisRaw("Vertical");
+            dashZ = Input.GetAxisRaw("Horizontal");
+            dashTime = startDashTime;
         }
 
         if (dashTime <= 0)
@@ -207,7 +207,7 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         else
         {
-            if(dashY != 0 || dashZ != 0 || (dashY >= 1 && dashZ <= 0))
+            if (!(dashY == 0 && dashZ == 0) || !(dashY >= 1 && dashZ == 0)) //Checks for no input at all, as well as just pressing up
             {
                 dashCoolDownCountDown = dashCoolDownTime;
                 canDash = false;
@@ -216,6 +216,9 @@ public class playerMovementBehaviour : MonoBehaviour
                 isJumping = false;
                 playerMat.color = Color.green;
                 rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
+            } else
+            {
+                dashTime = 0;
             }
         }
 
