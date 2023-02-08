@@ -31,7 +31,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float ledgeDistance;
     public bool isHangingOntoLedge;
     public bool canJumpOffLedge;
-    public float ledgeClimbSpeed;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -68,6 +67,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public Transform startingLocation;
     public GameObject Lava;
 
+    public bool canCrouch;
+    public bool isCrouched = false;
+    public bool inCrouchZone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,7 +90,7 @@ public class playerMovementBehaviour : MonoBehaviour
     void Update()
     {
         float hInput = Input.GetAxisRaw("Horizontal");
-        //float vInput = Input.GetAxisRaw("Vertical");
+        float vInput = Input.GetAxisRaw("Vertical");
 
         dashCoolDownCountDown -= Time.deltaTime;
 
@@ -101,23 +104,17 @@ public class playerMovementBehaviour : MonoBehaviour
             ledgeCheckAnim.Play("ledgeCheckRight");
         }
 
-        if (canMove == true)
+        if (canMove == true && isHangingOntoLedge == false)
         {
             switch(PlayerState)
             {
                 case playerMoveState.SideScrollerView:
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
                     break;
                 case playerMoveState.BehindTheBackView:
-                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
-                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, 0);
+                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
                     break;
                 default: //The default is the sidescroller controls
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
                     break;
             }
@@ -133,13 +130,29 @@ public class playerMovementBehaviour : MonoBehaviour
             {
                 canDash = true;
             }
+        } else
+        {
+            if (!(timesJumped < maxAmountOfJumps))
+            {
+                canJump = false;
+            }
         }
 
-        if(isDashing == false && isHangingOntoLedge == false && invincible == false)
+        if (isGrounded == true && isCrouched == false)
+        {
+            canCrouch = true;
+        }
+        else
+        {
+            canCrouch = false;
+        }
+
+        if (isDashing == false && isHangingOntoLedge == false && invincible == false)
         {
             playerMat.color = Color.white;
         }
 
+        /*
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
 
         if (isHangingOntoLedge)
@@ -159,22 +172,17 @@ public class playerMovementBehaviour : MonoBehaviour
             canJumpOffLedge = true;
         } else
         {
-            /*
-            if(PlayerState == playerMoveState.SideScrollerView)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePositionX;
-            }
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            */
-
             canMove = true;
             canFall = true;
         }
+        */
 
+        /*
         if(timesJumped < maxAmountOfJumps)
         {
             canJump = true;
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
         {
@@ -189,7 +197,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             if (jumpCountTimer > 0)
             {
-                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
                 jumpCountTimer -= Time.deltaTime;
             }
             else
@@ -198,10 +205,18 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canCrouch == true && canMove == true)
         {
-            isJumping = false;
-            canJump = false;
+            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            playerMat.color = Color.red;
+            isCrouched = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl) && inCrouchZone == false)
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            isCrouched = false;
+
         }
 
         /*
@@ -339,6 +354,14 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             startingLocation.position = other.transform.position;
         }
+
+        if (other.gameObject.CompareTag("CrouchZone"))
+        {
+            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            playerMat.color = Color.red;
+            isCrouched = true;
+            inCrouchZone = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -346,6 +369,13 @@ public class playerMovementBehaviour : MonoBehaviour
         if(other.gameObject.CompareTag("SpikeArea"))
         {
             GetComponent<Collider>().material = normalMat;
+        }
+
+        if (other.gameObject.CompareTag("CrouchZone"))
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            isCrouched = false;
+            inCrouchZone = false;
         }
     }
 
