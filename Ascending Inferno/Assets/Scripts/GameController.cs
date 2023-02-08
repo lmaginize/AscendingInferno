@@ -3,16 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {  
+
     public GameObject startPopUp,endPopUp;
     [SerializeField] GameObject endTrigger;
-    public TMP_Text health;
+  
+    //references to scripts
     private playerMovementBehaviour playerScript;
+    private GHookBehaviour ghookScript;
+
+    //vars for UI
+    public TMP_Text healthText;
+    public Slider healthSlider, ghookSlider;
+    public Image healthSprite, ghookSprite;
+
+    int maxSliderHealth;
     void Start()
     {
         playerScript = FindObjectOfType<playerMovementBehaviour>();
         playerMovementBehaviour.isDone = false;
+        ghookScript = FindObjectOfType<GHookBehaviour>();
+
+        maxSliderHealth = playerScript.health;
+        healthSlider.maxValue = maxSliderHealth;
+        healthSlider.value = maxSliderHealth;
+
+        ghookSlider.maxValue = ghookScript.cooldownTime;
     }
 
    
@@ -34,11 +52,18 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        UpdateGrapplingUI();
     }
 
     public void UpdateHealthUI()
     {
-        health.text = "Health: " + playerScript.health;
+        healthText.text = "Health: " + playerScript.health;
+        healthSlider.value = playerScript.health;
     }
-   
+
+    public void UpdateGrapplingUI()
+    {
+        ghookSlider.value = ghookScript.cooldown;
+    }
 }

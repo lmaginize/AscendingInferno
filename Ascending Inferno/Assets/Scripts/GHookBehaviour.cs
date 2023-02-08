@@ -13,7 +13,7 @@ public class GHookBehaviour : MonoBehaviour
 
     private bool isGrappling = false;
     private Vector3 grapplePoint;
-    private float cooldown = 0f;
+    public float cooldown = 0f;
     public float range;
 
     public AudioSource grapple;
