@@ -57,6 +57,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
+    private healthKit hk;
     private GameController gc;
 
     public PhysicMaterial bounceMat;
@@ -68,6 +69,7 @@ public class playerMovementBehaviour : MonoBehaviour
     void Start()
     {
         gc = FindObjectOfType<GameController>();
+        
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
@@ -316,6 +318,17 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             GetComponent<Collider>().material = bounceMat;
         }
+        
+        if (other.gameObject.CompareTag("HealthKit"))
+        {
+            hk = FindObjectOfType<healthKit>();
+            if(health < 3){
+                health++;
+                gc.UpdateHealthUI();
+                hk.OnPickup();
+            }
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -341,6 +354,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
            
         }
+
     }
 
     public void Uninvincible()
