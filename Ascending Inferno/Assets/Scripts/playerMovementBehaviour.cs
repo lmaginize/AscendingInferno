@@ -17,7 +17,12 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canMove;
     public bool canJump;
     public bool canDash = true;
+    public float timesJumped;
+    public float maxAmountOfJumps;
     public Material playerMat;
+
+    public enum playerMoveState { SideScrollerView, BehindTheBackView };
+    public playerMoveState PlayerState;
 
     public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
@@ -52,14 +57,24 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
+    private healthKit hk;
     private GameController gc;
+
+    public PhysicMaterial bounceMat;
+    public PhysicMaterial normalMat;
+
+    public bool invincible;
+
     // Start is called before the first frame update
     void Start()
     {
         gc = FindObjectOfType<GameController>();
+        
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
+
+        playerMat.color = Color.white;
 
         playerTransform = GetComponent<Transform>();
         ledgeCheckAnim = ledgeCheck.gameObject.GetComponent<Animator>();
@@ -85,13 +100,31 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (canMove == true)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
+            switch(PlayerState)
+            {
+                case playerMoveState.SideScrollerView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+                case playerMoveState.BehindTheBackView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, 0);
+                    break;
+                default: //The default is the sidescroller controls
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+            }
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded)
         {
+            timesJumped = 0;
             canJump = true;
             if(dashCoolDownCountDown <= 0)
             {
@@ -99,7 +132,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if(isDashing == false && isHangingOntoLedge == false)
+        if(isDashing == false && isHangingOntoLedge == false && invincible == false)
         {
             playerMat.color = Color.white;
         }
@@ -108,6 +141,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isHangingOntoLedge)
         {
+            timesJumped = 1;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
             rb.constraints = RigidbodyConstraints.FreezePositionY;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
@@ -115,22 +149,71 @@ public class playerMovementBehaviour : MonoBehaviour
 
             playerMat.color = Color.blue;
 
-            //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
-
             canFall = false;
             canMove = false;
-            canDash = true;
-            //canJumpOffLedge = true;
+            canDash = false;
+            canJump = true;
+            canJumpOffLedge = true;
         } else
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            /*
+            if(PlayerState == playerMoveState.SideScrollerView)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionX;
+            }
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            */
 
             canMove = true;
-            canJump = true;
             canFall = true;
         }
 
+        if(timesJumped < maxAmountOfJumps)
+        {
+            canJump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        {
+            timesJumped++;
+            isJumping = true;
+            jumpCountTimer = jumpTime;
+            AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpCountTimer > 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                jumpCountTimer -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+            canJump = false;
+        }
+
+        /*
+        if (Input.GetKey(KeyCode.W) && isDashing == true)
+        {
+            isDashing = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            isDashing = false;
+        }
+        */
+
+        /*
         if (Input.GetKeyDown(KeyCode.W) && isDashing == false && canDash == true) //&& (isGrounded || canJumpOffLedge))
         {
             if(dashZ == 0)
@@ -145,6 +228,7 @@ public class playerMovementBehaviour : MonoBehaviour
             //jumpCountTimer = jumpTime;
             //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
+        */
 
         /*
         if (Input.GetKey(KeyCode.W) && isDashing == true)
@@ -162,9 +246,9 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Q) || Input.GetMouseButtonDown(0)) && isDashing == false && canDash == true)
         {
-            dashTime = startDashTime;
-            dashZ = Input.GetAxisRaw("Horizontal");
             dashY = Input.GetAxisRaw("Vertical");
+            dashZ = Input.GetAxisRaw("Horizontal");
+            dashTime = startDashTime;
         }
 
         if (dashTime <= 0)
@@ -177,7 +261,7 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         else
         {
-            if(dashY != 0 || dashZ != 0 || (dashY >= 1 && dashZ <= 0))
+            if (!(dashY == 0 && dashZ == 0) && !(dashY >= 1 && dashZ == 0)) //Checks for no input at all, as well as just pressing up
             {
                 dashCoolDownCountDown = dashCoolDownTime;
                 canDash = false;
@@ -187,6 +271,11 @@ public class playerMovementBehaviour : MonoBehaviour
                 playerMat.color = Color.green;
                 rb.velocity = new Vector3(rb.velocity.x, dashY * dashYAmount, dashZ * dashXAmount);
             }
+            else
+            {
+                dashTime = 0;
+            }
+
         }
 
         if (health <= 0)
@@ -224,14 +313,53 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isDone = true;
         }
+
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = bounceMat;
+        }
+        
+        if (other.gameObject.CompareTag("HealthKit"))
+        {
+            hk = FindObjectOfType<healthKit>();
+            if(health < 3){
+                health++;
+                gc.UpdateHealthUI();
+                hk.OnPickup();
+            }
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("SpikeArea"))
+        {
+            GetComponent<Collider>().material = normalMat;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Spike"))
         {
-            health--;
-            gc.UpdateHealthUI();
+            if (invincible == false)
+            {
+                health--;
+                invincible = true;
+                playerMat.color = Color.yellow;
+                gc.UpdateHealthUI();
+
+                Invoke("Uninvincible", 1f);
+            }
+           
         }
+
+    }
+
+    public void Uninvincible()
+    {
+        invincible = false;
+        playerMat.color = Color.white;
     }
 }
