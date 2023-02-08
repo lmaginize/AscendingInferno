@@ -66,6 +66,11 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public bool invincible;
 
+    public bool canCrouch;
+    public bool isCrouched = false;
+    public bool inCrouchZone;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,7 +138,17 @@ public class playerMovementBehaviour : MonoBehaviour
             }
         }
 
-        if(isDashing == false && isHangingOntoLedge == false && invincible == false)
+        if (isGrounded == true && isCrouched == false)
+        {
+            canCrouch = true;
+        }
+        else
+        {
+            canCrouch = false;
+        }
+
+
+        if(isDashing == false && isHangingOntoLedge == false && invincible == false && isCrouched == false)
         {
             playerMat.color = Color.white;
         }
@@ -203,6 +218,23 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isJumping = false;
             canJump = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canCrouch == true && canMove == true)
+        {
+            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            playerMat.color = Color.red;
+            isCrouched = true;
+
+
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.LeftControl) && inCrouchZone == false)
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            isCrouched = false;
+
         }
 
         /*
@@ -333,6 +365,14 @@ public class playerMovementBehaviour : MonoBehaviour
             }
 
         }
+
+        if(other.gameObject.CompareTag("CrouchZone"))
+        {
+            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+            playerMat.color = Color.red;
+            isCrouched = true;
+            inCrouchZone = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -340,6 +380,13 @@ public class playerMovementBehaviour : MonoBehaviour
         if(other.gameObject.CompareTag("SpikeArea"))
         {
             GetComponent<Collider>().material = normalMat;
+        }
+
+        if (other.gameObject.CompareTag("CrouchZone"))
+        {
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
+            isCrouched = false;
+            inCrouchZone = false;
         }
     }
 
