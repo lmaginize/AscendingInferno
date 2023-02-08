@@ -10,6 +10,8 @@ TagManager:
   - SpikeArea
   - HealthKit
   - CheckPoint
+  - Object
+  - Hazard
   layers:
   - Default
   - TransparentFX

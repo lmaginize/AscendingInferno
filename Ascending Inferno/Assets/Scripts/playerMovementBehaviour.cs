@@ -395,6 +395,20 @@ public class playerMovementBehaviour : MonoBehaviour
            
         }
 
+        if (other.gameObject.CompareTag("Hazard"))
+        {
+            if (invincible == false)
+            {
+                health--;
+                invincible = true;
+                playerMat.color = Color.yellow;
+                gc.UpdateHealthUI();
+
+                Invoke("Uninvincible", 1f);
+            }
+        }
+
+
     }
 
     public void Uninvincible()
