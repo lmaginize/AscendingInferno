@@ -28,8 +28,10 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isPlayerFacingRight;
     public Transform playerTransform;
     public Transform ledgeCheck;
+    public Transform secondaryLedgeCheck;
     public float ledgeDistance;
     public bool isHangingOntoLedge;
+    public bool isSomethingThere;
     public bool canJumpOffLedge;
     public float ledgeClimbSpeed;
 
@@ -46,7 +48,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float dashCoolDownTime;
     public float dashCoolDownCountDown;
     public int health = 3;
-
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
@@ -84,7 +85,7 @@ public class playerMovementBehaviour : MonoBehaviour
     void Update()
     {
         float hInput = Input.GetAxisRaw("Horizontal");
-        //float vInput = Input.GetAxisRaw("Vertical");
+        float vInput = Input.GetAxisRaw("Vertical");
 
         dashCoolDownCountDown -= Time.deltaTime;
 
@@ -98,7 +99,7 @@ public class playerMovementBehaviour : MonoBehaviour
             ledgeCheckAnim.Play("ledgeCheckRight");
         }
 
-        if (canMove == true)
+        if (canMove == true && isHangingOntoLedge == false)
         {
             switch(PlayerState)
             {
@@ -110,7 +111,7 @@ public class playerMovementBehaviour : MonoBehaviour
                 case playerMoveState.BehindTheBackView:
                     rb.constraints = RigidbodyConstraints.FreezePositionZ;
                     rb.constraints = RigidbodyConstraints.FreezeRotation;
-                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, 0);
+                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
                     break;
                 default: //The default is the sidescroller controls
                     rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -138,8 +139,9 @@ public class playerMovementBehaviour : MonoBehaviour
         }
 
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
+        isSomethingThere = Physics.CheckSphere(secondaryLedgeCheck.position, ledgeDistance, groundMask);
 
-        if (isHangingOntoLedge)
+        if (isHangingOntoLedge && !isSomethingThere)
         {
             timesJumped = 1;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -153,7 +155,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = false;
             canDash = false;
             canJump = true;
-            canJumpOffLedge = true;
+            //canJumpOffLedge = true;
         } else
         {
             /*
@@ -161,41 +163,43 @@ public class playerMovementBehaviour : MonoBehaviour
             {
                 rb.constraints = RigidbodyConstraints.FreezePositionX;
             }
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
             */
 
             canMove = true;
             canFall = true;
         }
 
+        /*
         if(timesJumped < maxAmountOfJumps)
         {
             canJump = true;
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
         {
             timesJumped++;
-            isJumping = true;
+            //rb.constraints = RigidbodyConstraints.FreezePositionX;
+            //rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            //rb.constraints = RigidbodyConstraints.FreezeRotation;
             jumpCountTimer = jumpTime;
+            isJumping = true;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpForce, rb.velocity.z);
         }
 
+        /*
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
         {
             if (jumpCountTimer > 0)
             {
-                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
                 jumpCountTimer -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
+                //isJumping = true;
             }
         }
+        */
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && !(timesJumped < maxAmountOfJumps))
         {
             isJumping = false;
             canJump = false;
