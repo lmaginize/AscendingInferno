@@ -21,6 +21,9 @@ public class playerMovementBehaviour : MonoBehaviour
     public float maxAmountOfJumps;
     public Material playerMat;
 
+    public enum playerMoveState { SideScrollerView, BehindTheBackView };
+    public playerMoveState PlayerState;
+
     public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
     public Transform playerTransform;
@@ -95,7 +98,24 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (canMove == true)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
+            switch(PlayerState)
+            {
+                case playerMoveState.SideScrollerView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+                case playerMoveState.BehindTheBackView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, 0);
+                    break;
+                default: //The default is the sidescroller controls
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+            }
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -134,8 +154,13 @@ public class playerMovementBehaviour : MonoBehaviour
             canJumpOffLedge = true;
         } else
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            /*
+            if(PlayerState == playerMoveState.SideScrollerView)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionX;
+            }
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            */
 
             canMove = true;
             canFall = true;
