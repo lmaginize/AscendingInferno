@@ -8,6 +8,8 @@ TagManager:
   - EndTrigger
   - Spike
   - SpikeArea
+  - HealthKit
+  - CrouchZone
   layers:
   - Default
   - TransparentFX
