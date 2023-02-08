@@ -28,12 +28,9 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isPlayerFacingRight;
     public Transform playerTransform;
     public Transform ledgeCheck;
-    public Transform secondaryLedgeCheck;
     public float ledgeDistance;
     public bool isHangingOntoLedge;
-    public bool isSomethingThere;
     public bool canJumpOffLedge;
-    public float ledgeClimbSpeed;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -109,18 +106,12 @@ public class playerMovementBehaviour : MonoBehaviour
             switch(PlayerState)
             {
                 case playerMoveState.SideScrollerView:
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
                     break;
                 case playerMoveState.BehindTheBackView:
-                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
                     break;
                 default: //The default is the sidescroller controls
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
                     break;
             }
@@ -135,6 +126,12 @@ public class playerMovementBehaviour : MonoBehaviour
             if(dashCoolDownCountDown <= 0)
             {
                 canDash = true;
+            }
+        } else
+        {
+            if (!(timesJumped < maxAmountOfJumps))
+            {
+                canJump = false;
             }
         }
 
@@ -153,10 +150,10 @@ public class playerMovementBehaviour : MonoBehaviour
             playerMat.color = Color.white;
         }
 
+        /*
         isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
-        isSomethingThere = Physics.CheckSphere(secondaryLedgeCheck.position, ledgeDistance, groundMask);
 
-        if (isHangingOntoLedge && !isSomethingThere)
+        if (isHangingOntoLedge)
         {
             timesJumped = 1;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -173,16 +170,10 @@ public class playerMovementBehaviour : MonoBehaviour
             //canJumpOffLedge = true;
         } else
         {
-            /*
-            if(PlayerState == playerMoveState.SideScrollerView)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePositionX;
-            }
-            */
-
             canMove = true;
             canFall = true;
         }
+        */
 
         /*
         if(timesJumped < maxAmountOfJumps)
@@ -197,28 +188,30 @@ public class playerMovementBehaviour : MonoBehaviour
             //rb.constraints = RigidbodyConstraints.FreezePositionX;
             //rb.constraints = RigidbodyConstraints.FreezePositionZ;
             //rb.constraints = RigidbodyConstraints.FreezeRotation;
-            jumpCountTimer = jumpTime;
-            isJumping = true;
+            //jumpCountTimer = jumpTime;
+            //sJumping = true;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpForce, rb.velocity.z);
         }
 
-        /*
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
         {
             if (jumpCountTimer > 0)
             {
                 jumpCountTimer -= Time.deltaTime;
                 //isJumping = true;
+            } else
+            {
+                isJumping = false;
             }
         }
-        */
 
+        /*
         if (Input.GetKeyUp(KeyCode.Space) && !(timesJumped < maxAmountOfJumps))
         {
-            isJumping = false;
-            canJump = false;
+
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && canCrouch == true && canMove == true)
         {
