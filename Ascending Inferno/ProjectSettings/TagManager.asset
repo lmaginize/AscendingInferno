@@ -10,6 +10,7 @@ TagManager:
   - SpikeArea
   - HealthKit
   - CheckPoint
+  - CrouchZone
   layers:
   - Default
   - TransparentFX
