@@ -17,7 +17,12 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canMove;
     public bool canJump;
     public bool canDash = true;
+    public float timesJumped;
+    public float maxAmountOfJumps;
     public Material playerMat;
+
+    public enum playerMoveState { SideScrollerView, BehindTheBackView };
+    public playerMoveState PlayerState;
 
     public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
@@ -52,6 +57,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public static bool isDone;
 
     public AudioClip JumpSound;
+    private healthKit hk;
     private GameController gc;
 
     public PhysicMaterial bounceMat;
@@ -63,6 +69,7 @@ public class playerMovementBehaviour : MonoBehaviour
     void Start()
     {
         gc = FindObjectOfType<GameController>();
+        
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
@@ -93,13 +100,31 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (canMove == true)
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, hInput * moveSpeed);
+            switch(PlayerState)
+            {
+                case playerMoveState.SideScrollerView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+                case playerMoveState.BehindTheBackView:
+                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, 0);
+                    break;
+                default: //The default is the sidescroller controls
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    break;
+            }
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded)
         {
+            timesJumped = 0;
             canJump = true;
             if(dashCoolDownCountDown <= 0)
             {
@@ -116,6 +141,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (isHangingOntoLedge)
         {
+            timesJumped = 1;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
             rb.constraints = RigidbodyConstraints.FreezePositionY;
             rb.constraints = RigidbodyConstraints.FreezePositionZ;
@@ -123,24 +149,33 @@ public class playerMovementBehaviour : MonoBehaviour
 
             playerMat.color = Color.blue;
 
-            //rb.velocity = new Vector3(rb.velocity.x, ledgeClimbSpeed, rb.velocity.z);
-
             canFall = false;
             canMove = false;
-            canDash = true;
+            canDash = false;
+            canJump = true;
             canJumpOffLedge = true;
         } else
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            /*
+            if(PlayerState == playerMoveState.SideScrollerView)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePositionX;
+            }
             rb.constraints = RigidbodyConstraints.FreezeRotation;
+            */
 
             canMove = true;
-            canJump = true;
             canFall = true;
+        }
+
+        if(timesJumped < maxAmountOfJumps)
+        {
+            canJump = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
         {
+            timesJumped++;
             isJumping = true;
             jumpCountTimer = jumpTime;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
@@ -283,6 +318,17 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             GetComponent<Collider>().material = bounceMat;
         }
+        
+        if (other.gameObject.CompareTag("HealthKit"))
+        {
+            hk = FindObjectOfType<healthKit>();
+            if(health < 3){
+                health++;
+                gc.UpdateHealthUI();
+                hk.OnPickup();
+            }
+
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -308,6 +354,7 @@ public class playerMovementBehaviour : MonoBehaviour
             }
            
         }
+
     }
 
     public void Uninvincible()
