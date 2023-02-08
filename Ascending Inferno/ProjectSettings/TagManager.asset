@@ -8,11 +8,13 @@ TagManager:
   - EndTrigger
   - Spike
   - SpikeArea
+  - HealthKit
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HookWall
   - Water
   - UI
   - Ground

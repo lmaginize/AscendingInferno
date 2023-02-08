@@ -65,6 +65,9 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public bool invincible;
 
+    public Transform startingLocation;
+    public GameObject Lava;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -285,6 +288,8 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = false;
             jumpForce = 0;
             Time.timeScale = 0f;
+            Time.timeScale = 1f;
+            Invoke("Respawn", 2);
         }
     }
 
@@ -329,6 +334,11 @@ public class playerMovementBehaviour : MonoBehaviour
             }
 
         }
+
+        if (other.gameObject.CompareTag("CheckPoint"))
+        {
+            startingLocation.position = other.transform.position;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -361,5 +371,23 @@ public class playerMovementBehaviour : MonoBehaviour
     {
         invincible = false;
         playerMat.color = Color.white;
+    }
+
+    public void Respawn()
+    {
+        if (health == 0)
+        {
+            Time.timeScale = 1f;
+            transform.position = startingLocation.position;
+            gameObject.GetComponent<CapsuleCollider>().enabled = true;
+            mainCamera.transform.parent = playerTransform;
+            mainCamera.transform.position = new Vector3(playerTransform.position.x + 8.38f, playerTransform.position.y + 3.4f, playerTransform.position.z);
+            canMove = true;
+            jumpForce = 7;
+            Lava.transform.position = new Vector3(0, gameObject.transform.position.y - 290f, 0);
+            Lava.GetComponent<lavaBehaviour>().lavaSpeed = 213;
+            health = 3;
+            
+        }
     }
 }
