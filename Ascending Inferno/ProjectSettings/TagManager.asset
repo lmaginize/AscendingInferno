@@ -9,12 +9,12 @@ TagManager:
   - Spike
   - SpikeArea
   - HealthKit
-  - CrouchZone
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HookWall
   - Water
   - UI
   - Ground
