@@ -10,10 +10,11 @@ public class GHookBehaviour : MonoBehaviour
     public float grappleSpeed = 3.0f;
     public LayerMask grappleLayer;
     public float cooldownTime = 2.0f;
+    public float cooldown = 0f;
+
 
     private bool isGrappling = false;
     private Vector3 grapplePoint;
-    private float cooldown = 0f;
     public float range;
 
     public AudioSource grapple;
