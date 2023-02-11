@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
     public GameObject startPopUp,endPopUp;
     [SerializeField] GameObject endTrigger;
 
-    
     //reference to Scripts
     private playerMovementBehaviour playerScript;
     private GHookBehaviour ghookScript;
@@ -20,14 +19,16 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        //gets a reference to scripts
         playerScript = FindObjectOfType<playerMovementBehaviour>();
         ghookScript = FindObjectOfType<GHookBehaviour>();
+
+        //sets game state
         playerMovementBehaviour.isDone = false;
 
         //setting values for sliders
         healthSlider.maxValue = playerScript.health;
         healthSlider.value = playerScript.health;
-
         grapplingSlider.maxValue = ghookScript.cooldownTime;
     }
    
@@ -37,14 +38,10 @@ public class GameController : MonoBehaviour
 
         if(playerMovementBehaviour.isDone)
         {
-            if(endPopUp!= null)
-            {
-                endPopUp.SetActive(true);
-                Destroy(endPopUp, 3);
-                endTrigger.SetActive(false);
-            }
+            EndGameState();
         }
 
+        //restarts level
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -52,15 +49,36 @@ public class GameController : MonoBehaviour
         UpdateGrapplingUI();
     }
 
+    /// <summary>
+    /// Updates the UI elements for health
+    /// is called by playeBehaviour
+    /// </summary>
     public void UpdateHealthUI()
     {
         healthText.text = "Health: " + playerScript.health;
         healthSlider.value = playerScript.health;
     }
 
-    public void UpdateGrapplingUI()
+    /// <summary>
+    /// Updates the UI elements for grappling
+    /// is called by playeBehaviour
+    /// </summary>
+    private void UpdateGrapplingUI()
     {
         grapplingSlider.value = ghookScript.cooldown;
     }
    
+    /// <summary>
+    /// once the player is done with the level the following events will happen
+    /// </summary>
+    private void EndGameState()
+    {
+        if (endPopUp != null)
+        {
+            //temp trigger, says the player is done
+            endPopUp.SetActive(true);
+            Destroy(endPopUp, 3);
+            endTrigger.SetActive(false);
+        }
+    }
 }
