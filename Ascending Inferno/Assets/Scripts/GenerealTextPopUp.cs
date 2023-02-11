@@ -11,7 +11,7 @@ public class GenerealTextPopUp : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GeneralPopUp(duration));
+       // StartCoroutine(GeneralPopUp(duration));//testing purposes
     }
     private IEnumerator GeneralPopUp(float duration)
     {
