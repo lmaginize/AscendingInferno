@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Melting : MonoBehaviour
 {
+    public Animator iceBlockMelt;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,17 @@ public class Melting : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Heat"))
+        {
+            GetComponent<Animator>().SetBool("isMelting", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("isMelting", false);
+        }
     }
 }
