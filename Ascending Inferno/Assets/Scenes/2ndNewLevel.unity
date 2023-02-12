@@ -2848,7 +2848,7 @@ GameObject:
   - component: {fileID: 293025602}
   - component: {fileID: 293025601}
   - component: {fileID: 293025600}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Platform (60)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18008,6 +18008,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549761064}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1550411351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+  m_PrefabInstance: {fileID: 354624074}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1551092728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18094,6 +18099,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform Switch
       objectReference: {fileID: 0}
+    - target: {fileID: 2061589070397573097, guid: b6d56836da8baf346a4686e7fce9e9e2, type: 3}
+      propertyPath: Lava
+      value: 
+      objectReference: {fileID: 466731726}
+    - target: {fileID: 2061589070397573097, guid: b6d56836da8baf346a4686e7fce9e9e2, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 765876272}
+    - target: {fileID: 2061589070397573097, guid: b6d56836da8baf346a4686e7fce9e9e2, type: 3}
+      propertyPath: Platform
+      value: 
+      objectReference: {fileID: 1550411351}
     - target: {fileID: 2061589070397573101, guid: b6d56836da8baf346a4686e7fce9e9e2, type: 3}
       propertyPath: m_RootOrder
       value: -1
