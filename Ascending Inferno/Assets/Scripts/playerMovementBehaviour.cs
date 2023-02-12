@@ -431,7 +431,7 @@ public class playerMovementBehaviour : MonoBehaviour
             Lava.transform.position = new Vector3(0, gameObject.transform.position.y - 290f, 0);
             Lava.GetComponent<lavaBehaviour>().lavaSpeed = 213;
             health = 3;
-            
+            gc.UpdateHealthUI();
         }
     }
 }
