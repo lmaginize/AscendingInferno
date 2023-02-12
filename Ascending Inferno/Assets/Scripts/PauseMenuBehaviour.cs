@@ -13,6 +13,7 @@ public class PauseMenuBehaviour : MonoBehaviour
     [SerializeField] GameObject pauseMenuUI;
     [SerializeField] TMP_Text mouseValue, audioValue;
     [SerializeField] Slider mouseSlider, audioSlider;
+    [SerializeField] GameObject UI;
 
     private void Start()
     {
@@ -32,10 +33,12 @@ public class PauseMenuBehaviour : MonoBehaviour
             if (isPaused)
             {
                 Resume();
+              
             }
             else
             {
                 Pause();
+                
             }
                
         }
@@ -48,7 +51,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         pauseMenuUI.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f;
-       
+        UI.SetActive(true);
     }
 
     /// <summary>
@@ -60,6 +63,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         isInPauseMenu = true;
         isPaused = true;
         Time.timeScale = 0f;
+        UI.SetActive(false);
     }
 
     public void AudioSlider()
