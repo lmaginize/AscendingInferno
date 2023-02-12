@@ -6,8 +6,8 @@ using TMPro;
 using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {  
-    public GameObject startPopUp,endPopUp;
-    [SerializeField] GameObject endTrigger;
+   // public GameObject startPopUp,endPopUp; // no longer needed
+    //[SerializeField] GameObject endTrigger; // no longer needed
 
     //reference to Scripts
     private playerMovementBehaviour playerScript;
@@ -34,12 +34,12 @@ public class GameController : MonoBehaviour
    
     void Update()
     {
-        Destroy(startPopUp, 3); 
+       /* Destroy(startPopUp, 3); 
 
         if(playerMovementBehaviour.isDone)
         {
             EndGameState();
-        }
+        }*/
 
         //restarts level
         if (Input.GetKeyDown(KeyCode.R))
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
     /// </summary>
     public void UpdateHealthUI()
     {
-        healthText.text = "Health: " + playerScript.health;
+        healthText.text = playerScript.health.ToString();
         healthSlider.value = playerScript.health;
     }
 
@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour
     /// <summary>
     /// once the player is done with the level the following events will happen
     /// </summary>
-    private void EndGameState()
+    /*private void EndGameState()
     {
         if (endPopUp != null)
         {
@@ -80,5 +80,5 @@ public class GameController : MonoBehaviour
             Destroy(endPopUp, 3);
             endTrigger.SetActive(false);
         }
-    }
+    }*/
 }

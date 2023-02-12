@@ -8,7 +8,8 @@ public class GenerealTextPopUp : MonoBehaviour
     [SerializeField] TMP_Text textObject;
     [SerializeField] string textInput;
     [SerializeField] int duration;
-
+    [SerializeField] bool triggerOnce;
+    private bool hasTriggered;
     private void Start()
     {
        // StartCoroutine(GeneralPopUp(duration));//testing purposes
@@ -20,6 +21,7 @@ public class GenerealTextPopUp : MonoBehaviour
             textObject.text = textInput;
         }
         yield return new WaitForSeconds(duration);
+        hasTriggered = true;
         textObject.text = "";
     }
 
@@ -27,7 +29,11 @@ public class GenerealTextPopUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(GeneralPopUp(duration));
+            if(!hasTriggered || !triggerOnce)
+            {
+                StartCoroutine(GeneralPopUp(duration));
+
+            }
         }
     }
 }
