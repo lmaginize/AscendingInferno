@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     //vars for UI
     public TMP_Text healthText;
-    public Slider healthSlider, grapplingSlider;
+    public Slider healthSlider, grapplingSlider, dashSlider;
 
     void Start()
     {
@@ -29,7 +29,12 @@ public class GameController : MonoBehaviour
         //setting values for sliders
         healthSlider.maxValue = playerScript.health;
         healthSlider.value = playerScript.health;
+
         grapplingSlider.maxValue = ghookScript.cooldownTime;
+        grapplingSlider.value = ghookScript.cooldownTime;
+
+        dashSlider.maxValue = playerScript.dashCoolDownTime;
+        dashSlider.value = playerScript.dashCoolDownTime;
     }
    
     void Update()
@@ -47,6 +52,10 @@ public class GameController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         UpdateGrapplingUI();
+        UpdateDashUI();
+
+
+
     }
 
     /// <summary>
@@ -59,13 +68,30 @@ public class GameController : MonoBehaviour
         healthSlider.value = playerScript.health;
     }
 
+
+    public void UpdateDashUI()
+    {
+        dashSlider.value = playerScript.dashCoolDownTime;
+        if (playerScript.dashCoolDownCountDown >= 0)
+        {
+            dashSlider.value = playerScript.dashCoolDownCountDown;
+        }
+    }
+
+
     /// <summary>
     /// Updates the UI elements for grappling
     /// is called by playeBehaviour
     /// </summary>
     private void UpdateGrapplingUI()
     {
-        grapplingSlider.value = ghookScript.cooldown;
+
+        grapplingSlider.value = ghookScript.cooldownTime;
+
+        if (ghookScript.cooldown > 0)
+        {
+            grapplingSlider.value = ghookScript.cooldown;
+        }
     }
    
     /// <summary>
