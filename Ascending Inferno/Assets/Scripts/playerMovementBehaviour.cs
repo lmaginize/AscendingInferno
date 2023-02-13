@@ -119,12 +119,18 @@ public class playerMovementBehaviour : MonoBehaviour
             {
                 case playerMoveState.SideScrollerView:
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
                 case playerMoveState.BehindTheBackView:
                     rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
                 default: //The default is the sidescroller controls
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
             }
         }
@@ -179,9 +185,6 @@ public class playerMovementBehaviour : MonoBehaviour
             canJumpOffLedge = true;
         } else
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-
             canMove = true;
             canFall = true;
             rb.useGravity = true;
@@ -200,7 +203,7 @@ public class playerMovementBehaviour : MonoBehaviour
             isJumping = true;
             jumpCountTimer = jumpTime;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpForce, rb.velocity.z);
             isHangingOntoLedge = false;
         }
 
