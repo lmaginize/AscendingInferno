@@ -15,6 +15,8 @@ public class MovingPlatform : MonoBehaviour
 
     public GameObject position1;
     public GameObject position2;
+
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,15 @@ public class MovingPlatform : MonoBehaviour
         {
             Movement();
         }
+        else
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+        }
         
+        if (player.GetComponent<playerMovementBehaviour>().health == 0)
+        {
+            active = false;
+        }
         
     }
 

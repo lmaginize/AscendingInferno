@@ -25,6 +25,7 @@ public class SwitchBehaviour : MonoBehaviour
     {
         MovingPlatform mp = Platform.GetComponent<MovingPlatform>();
         lavaBehaviour lb = Lava.GetComponent<lavaBehaviour>();
+        playerMovementBehaviour pb = player.GetComponent<playerMovementBehaviour>();
         if (collision.gameObject.Equals(player))
         {
             if (switchType == 0)
