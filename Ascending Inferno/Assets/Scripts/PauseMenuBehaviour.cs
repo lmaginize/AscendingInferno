@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
+using UnityEngine.UI;
 public class PauseMenuBehaviour : MonoBehaviour
 {
     //vars
     public static bool isPaused;
-
+    bool isInPauseMenu;
     //Gets a reference to the pause menu
     [SerializeField] GameObject pauseMenuUI;
+    [SerializeField] TMP_Text mouseValue, audioValue;
+    [SerializeField] Slider mouseSlider, audioSlider;
+    [SerializeField] GameObject UI;
 
     private void Start()
     {
@@ -23,16 +27,18 @@ public class PauseMenuBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) && !isInPauseMenu)
         {
             //Checks if game is already paused
             if (isPaused)
             {
                 Resume();
+              
             }
             else
             {
                 Pause();
+                
             }
                
         }
@@ -45,6 +51,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         pauseMenuUI.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f;
+        UI.SetActive(true);
     }
 
     /// <summary>
@@ -52,9 +59,21 @@ public class PauseMenuBehaviour : MonoBehaviour
     /// </summary>
     private void Pause()
     {
-       
         pauseMenuUI.SetActive(true);
+        isInPauseMenu = true;
         isPaused = true;
         Time.timeScale = 0f;
+        UI.SetActive(false);
+    }
+
+    public void AudioSlider()
+    {
+        audioValue.text = audioSlider.value.ToString("F0");
+    }
+
+    public void MouseSlider()
+    {
+        mouseValue.text = mouseSlider.value.ToString("F0");
     }
 }
+

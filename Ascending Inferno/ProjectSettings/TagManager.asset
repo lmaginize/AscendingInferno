@@ -10,8 +10,8 @@ TagManager:
   - SpikeArea
   - HealthKit
   - CheckPoint
-  - Object
-  - Hazard
+  - CrouchZone
+  - Heat
   layers:
   - Default
   - TransparentFX
@@ -21,7 +21,7 @@ TagManager:
   - UI
   - Ground
   - Wall
-  - 
+  - Heat
   - 
   - 
   - 

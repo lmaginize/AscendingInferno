@@ -354,14 +354,14 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             startingLocation.position = other.transform.position;
         }
-
+/*
         if (other.gameObject.CompareTag("CrouchZone"))
         {
             gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
             playerMat.color = Color.red;
             isCrouched = true;
             inCrouchZone = true;
-        }
+        }*/
     }
 
     private void OnTriggerExit(Collider other)
@@ -371,12 +371,12 @@ public class playerMovementBehaviour : MonoBehaviour
             GetComponent<Collider>().material = normalMat;
         }
 
-        if (other.gameObject.CompareTag("CrouchZone"))
+       /* if (other.gameObject.CompareTag("CrouchZone"))
         {
             gameObject.transform.localScale = new Vector3(1, 1, 1);
             isCrouched = false;
             inCrouchZone = false;
-        }
+        }*/
     }
 
     private void OnCollisionEnter(Collision other)
@@ -427,11 +427,11 @@ public class playerMovementBehaviour : MonoBehaviour
             mainCamera.transform.parent = playerTransform;
             mainCamera.transform.position = new Vector3(playerTransform.position.x + 8.38f, playerTransform.position.y + 3.4f, playerTransform.position.z);
             canMove = true;
-            jumpForce = 7;
+            jumpForce = 15;
             Lava.transform.position = new Vector3(0, gameObject.transform.position.y - 290f, 0);
             Lava.GetComponent<lavaBehaviour>().lavaSpeed = 213;
             health = 3;
-            
+            gc.UpdateHealthUI();
         }
     }
 }
