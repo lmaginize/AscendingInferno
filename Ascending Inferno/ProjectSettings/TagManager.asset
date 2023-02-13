@@ -12,6 +12,7 @@ TagManager:
   - CheckPoint
   - CrouchZone
   - Heat
+  - Hazard
   layers:
   - Default
   - TransparentFX

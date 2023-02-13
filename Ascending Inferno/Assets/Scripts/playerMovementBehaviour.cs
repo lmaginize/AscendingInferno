@@ -24,13 +24,16 @@ public class playerMovementBehaviour : MonoBehaviour
     public enum playerMoveState { SideScrollerView, BehindTheBackView };
     public playerMoveState PlayerState;
 
-    public Animator ledgeCheckAnim;
     public bool isPlayerFacingRight;
     public Transform playerTransform;
-    public Transform ledgeCheck;
+    public Vector3 ledgePosAlteration; //The amount we will move the player upon him hooking onto a ledge
     public float ledgeDistance;
     public bool isHangingOntoLedge;
     public bool canJumpOffLedge;
+    public float ledgeCheckSide;
+    public Vector3 verticalLedgeCheckBuffer;
+    public Vector3 horizontalLedgeCheckBuffer;
+    public float horizontalLedgeCheckBufferZ;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -49,7 +52,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public float gravityScale;
     public static float globalGravity = -9.81f;
-    public bool canFall = true;
+    public bool canFall;
     
     public GameObject mainCamera;
 
@@ -83,7 +86,6 @@ public class playerMovementBehaviour : MonoBehaviour
         playerMat.color = Color.white;
 
         playerTransform = GetComponent<Transform>();
-        ledgeCheckAnim = ledgeCheck.gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -94,14 +96,21 @@ public class playerMovementBehaviour : MonoBehaviour
 
         dashCoolDownCountDown -= Time.deltaTime;
 
+        verticalLedgeCheckBuffer = new Vector3(0, 1.03f, 0.89f * ledgeCheckSide);
+        horizontalLedgeCheckBuffer = new Vector3(0, 0.16f, horizontalLedgeCheckBufferZ);
+
+        ledgePosAlteration = new Vector3(transform.position.x, transform.position.y, ledgeCheckSide * 10);
+
         if (hInput < 0)
         {
             isPlayerFacingRight = false;
-            ledgeCheckAnim.Play("ledgeCheckLeft");
+            ledgeCheckSide = -1;
+            horizontalLedgeCheckBufferZ = -1.41f;
         } else if(hInput > 0)
         {
             isPlayerFacingRight = true;
-            ledgeCheckAnim.Play("ledgeCheckRight");
+            ledgeCheckSide = 1;
+            horizontalLedgeCheckBufferZ = 0.51f;
         }
 
         if (canMove == true && isHangingOntoLedge == false)
@@ -152,30 +161,31 @@ public class playerMovementBehaviour : MonoBehaviour
             playerMat.color = Color.white;
         }
 
-        /*
-        isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
+        //isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
 
         if (isHangingOntoLedge)
         {
-            timesJumped = 1;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
-            rb.constraints = RigidbodyConstraints.FreezePositionZ;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
+            timesJumped = 1;
             playerMat.color = Color.blue;
 
             canFall = false;
             canMove = false;
             canDash = false;
+            rb.useGravity = false;
+
             canJump = true;
             canJumpOffLedge = true;
         } else
         {
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             canMove = true;
             canFall = true;
+            rb.useGravity = true;
         }
-        */
 
         /*
         if(timesJumped < maxAmountOfJumps)
@@ -191,6 +201,7 @@ public class playerMovementBehaviour : MonoBehaviour
             jumpCountTimer = jumpTime;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            isHangingOntoLedge = false;
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
@@ -306,14 +317,32 @@ public class playerMovementBehaviour : MonoBehaviour
             Time.timeScale = 1f;
             Invoke("Respawn", 2);
         }
+
+        Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
+        Debug.DrawRay(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left) * 1f, Color.red);
     }
 
     private void FixedUpdate()
     {
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
         if(canFall == true)
         {
+            Vector3 gravity = globalGravity * gravityScale * Vector3.up;
             rb.AddForce(gravity, ForceMode.Acceleration);
+            if (!isGrounded)
+            {
+                if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, groundMask))
+                {
+                    //canFall = false;
+                    //print("On Ledge");
+                    if (Physics.Raycast(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left), out RaycastHit hitInfoTwo, 1f, groundMask))
+                    {
+                        isHangingOntoLedge = true;
+                        transform.position = transform.position;
+                        //Move the player away from the ledge some, prevent falling
+                        print("On Ledge");
+                    }
+                }
+            }
         }
     }
 
