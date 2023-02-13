@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {  
    // public GameObject startPopUp,endPopUp; // no longer needed
-    //[SerializeField] GameObject endTrigger; // no longer needed
+    [SerializeField] GameObject endTrigger; //final trigger to dictate end state.
 
     //reference to Scripts
     private playerMovementBehaviour playerScript;
@@ -39,23 +39,17 @@ public class GameController : MonoBehaviour
    
     void Update()
     {
-       /* Destroy(startPopUp, 3); 
-
         if(playerMovementBehaviour.isDone)
         {
             EndGameState();
-        }*/
-
-        //restarts level
-        if (Input.GetKeyDown(KeyCode.R))
+        }
+            //restarts level
+            if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         UpdateGrapplingUI();
         UpdateDashUI();
-
-
-
     }
 
     /// <summary>
@@ -93,18 +87,12 @@ public class GameController : MonoBehaviour
             grapplingSlider.value = ghookScript.cooldown;
         }
     }
-   
+
     /// <summary>
     /// once the player is done with the level the following events will happen
     /// </summary>
-    /*private void EndGameState()
+    private void EndGameState()
     {
-        if (endPopUp != null)
-        {
-            //temp trigger, says the player is done
-            endPopUp.SetActive(true);
-            Destroy(endPopUp, 3);
-            endTrigger.SetActive(false);
-        }
-    }*/
+        SceneManager.LoadScene("WinScene");
+    }
 }
