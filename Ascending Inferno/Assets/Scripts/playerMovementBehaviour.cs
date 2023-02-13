@@ -32,7 +32,9 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool canJumpOffLedge;
     public float ledgeCheckSide;
     public Vector3 verticalLedgeCheckBuffer;
-    public Vector3 horizontalLedgeCheckBuffer;
+    public Vector3 horizontalLedgeCheckPos;
+    public GameObject horizontalLedgeCheckPrefab;
+    public GameObject horizontalLedgeCheckObj; //This gets deleted
     public float horizontalLedgeCheckBufferZ;
 
     public bool isGrounded;
@@ -97,9 +99,9 @@ public class playerMovementBehaviour : MonoBehaviour
         dashCoolDownCountDown -= Time.deltaTime;
 
         verticalLedgeCheckBuffer = new Vector3(0, 1.03f, 0.89f * ledgeCheckSide);
-        horizontalLedgeCheckBuffer = new Vector3(0, 0.16f, horizontalLedgeCheckBufferZ);
+        horizontalLedgeCheckPos = new Vector3(0.89f * ledgeCheckSide, 0, 0);
 
-        ledgePosAlteration = new Vector3(transform.position.x, transform.position.y, ledgeCheckSide * 10);
+        ledgePosAlteration = new Vector3(transform.position.x, transform.position.y, ledgeCheckSide * 0.5f);
 
         if (hInput < 0)
         {
@@ -188,6 +190,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = true;
             canFall = true;
             rb.useGravity = true;
+            Destroy(horizontalLedgeCheckObj);
         }
 
         /*
@@ -197,7 +200,7 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         */
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true || (isHangingOntoLedge && canJumpOffLedge == true)))
         {
             timesJumped++;
             isJumping = true;
@@ -322,7 +325,7 @@ public class playerMovementBehaviour : MonoBehaviour
         }
 
         Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
-        Debug.DrawRay(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left) * 1f, Color.red);
+        Debug.DrawRay(transform.position + horizontalLedgeCheckPos, transform.TransformDirection(Vector3.left) * 1f, Color.red);
     }
 
     private void FixedUpdate()
@@ -335,15 +338,16 @@ public class playerMovementBehaviour : MonoBehaviour
             {
                 if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, groundMask))
                 {
-                    //canFall = false;
-                    //print("On Ledge");
-                    if (Physics.Raycast(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left), out RaycastHit hitInfoTwo, 1f, groundMask))
+                    horizontalLedgeCheckObj = Instantiate(horizontalLedgeCheckPrefab, this.transform, false);
+                    /*
+                    if (Physics.Raycast(transform.position + horizontalLedgeCheckPos, transform.TransformDirection(Vector3.left), out RaycastHit hitInfoTwo, 1f, groundMask))
                     {
                         isHangingOntoLedge = true;
-                        transform.position = transform.position;
+                        //transform.position = transform.position + ledgePosAlteration;
                         //Move the player away from the ledge some, prevent falling
                         print("On Ledge");
                     }
+                    */
                 }
             }
         }
