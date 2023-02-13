@@ -1480,7 +1480,7 @@ Transform:
   m_GameObject: {fileID: 1045160952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056499423}
@@ -1825,9 +1825,9 @@ MonoBehaviour:
   grappleSpeed: 30
   grappleLayer:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 193
   cooldownTime: 3
-  range: 7
+  range: 8
   grapple: {fileID: 0}
 --- !u!114 &1056499418
 MonoBehaviour:
@@ -1855,7 +1855,7 @@ MonoBehaviour:
   canJump: 0
   canDash: 0
   timesJumped: 0
-  maxAmountOfJumps: 0
+  maxAmountOfJumps: 1
   playerMat: {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
   PlayerState: 0
   ledgeCheckAnim: {fileID: 0}
@@ -1874,16 +1874,19 @@ MonoBehaviour:
   isDashing: 0
   dashY: 0
   dashZ: 0
-  dashCoolDownTime: 1
+  dashCoolDownTime: 0
   dashCoolDownCountDown: 0
   health: 3
   gravityScale: 3
   canFall: 1
   mainCamera: {fileID: 1896830026}
-  JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
+  JumpSound: {fileID: 0}
   bounceMat: {fileID: 0}
   normalMat: {fileID: 0}
   invincible: 0
+  canCrouch: 0
+  isCrouched: 0
+  inCrouchZone: 0
 --- !u!54 &1056499419
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3035,6 +3038,7 @@ GameObject:
   - component: {fileID: 1896830029}
   - component: {fileID: 1896830028}
   - component: {fileID: 1896830027}
+  - component: {fileID: 1896830030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3083,7 +3087,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 14.2
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3108,14 +3112,29 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896830026}
-  m_LocalRotation: {x: 0, y: -0.98279065, z: 0.1847233, w: 0}
-  m_LocalPosition: {x: -0, y: 3.4, z: 8.38}
+  m_LocalRotation: {x: -0, y: -0.9827906, z: 0.18472329, w: 0}
+  m_LocalPosition: {x: -0, y: 3.4, z: 8.380002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056499423}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 21.29, y: -180, z: 0}
+--- !u!114 &1896830030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896830026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f881490b2f53d9248843a29488d44fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1056499423}
+  smoothSpeed: 0.125
+  offset: {x: 34, y: 4, z: 0}
 --- !u!1 &2110080631
 GameObject:
   m_ObjectHideFlags: 0
