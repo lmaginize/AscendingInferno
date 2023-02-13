@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74da6223d7bee7a41a3ef64a86e6e0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 693185924445481499}
+  pausePanel: {fileID: 693185924445481499}
   mouseValue: {fileID: 8403212083790184649}
   audioValue: {fileID: 718517180321094652}
   mouseSlider: {fileID: 5138711525645953498}
