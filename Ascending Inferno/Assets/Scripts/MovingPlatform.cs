@@ -23,6 +23,8 @@ public class MovingPlatform : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
