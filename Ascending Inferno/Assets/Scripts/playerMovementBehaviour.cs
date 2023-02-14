@@ -26,14 +26,10 @@ public class playerMovementBehaviour : MonoBehaviour
 
     public bool isPlayerFacingRight;
     public Transform playerTransform;
-    public Vector3 ledgePosAlteration; //The amount we will move the player upon him hooking onto a ledge
-    public float ledgeDistance;
     public bool isHangingOntoLedge;
     public bool canJumpOffLedge;
     public float ledgeCheckSide;
     public Vector3 verticalLedgeCheckBuffer;
-    public Vector3 horizontalLedgeCheckBuffer;
-    public float horizontalLedgeCheckBufferZ;
 
     public bool isGrounded;
     private float jumpCountTimer;
@@ -97,34 +93,37 @@ public class playerMovementBehaviour : MonoBehaviour
         dashCoolDownCountDown -= Time.deltaTime;
 
         verticalLedgeCheckBuffer = new Vector3(0, 1.03f, 0.89f * ledgeCheckSide);
-        horizontalLedgeCheckBuffer = new Vector3(0, 0.16f, horizontalLedgeCheckBufferZ);
-
-        ledgePosAlteration = new Vector3(transform.position.x, transform.position.y, ledgeCheckSide * 10);
 
         if (hInput < 0)
         {
             isPlayerFacingRight = false;
             ledgeCheckSide = -1;
-            horizontalLedgeCheckBufferZ = -1.41f;
         } else if(hInput > 0)
         {
             isPlayerFacingRight = true;
             ledgeCheckSide = 1;
-            horizontalLedgeCheckBufferZ = 0.51f;
         }
 
         if (canMove == true && isHangingOntoLedge == false)
         {
-            switch(PlayerState)
+            rb.drag = 0.5f;
+            rb.angularDrag = 0.05f;
+            switch (PlayerState)
             {
                 case playerMoveState.SideScrollerView:
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
                 case playerMoveState.BehindTheBackView:
                     rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
                 default: //The default is the sidescroller controls
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+                    rb.constraints = RigidbodyConstraints.FreezePositionX;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
                     break;
             }
         }
@@ -161,27 +160,23 @@ public class playerMovementBehaviour : MonoBehaviour
             playerMat.color = Color.white;
         }
 
-        //isHangingOntoLedge = Physics.CheckSphere(ledgeCheck.position, ledgeDistance, groundMask);
-
         if (isHangingOntoLedge)
         {
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
             timesJumped = 1;
             playerMat.color = Color.blue;
+            print("is hung");
 
             canFall = false;
             canMove = false;
             canDash = false;
             rb.useGravity = false;
+            rb.drag = 100;
+            rb.angularDrag = 100;
 
             canJump = true;
             canJumpOffLedge = true;
         } else
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-
             canMove = true;
             canFall = true;
             rb.useGravity = true;
@@ -194,14 +189,17 @@ public class playerMovementBehaviour : MonoBehaviour
         }
         */
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump == true)
+        if (Input.GetKeyDown(KeyCode.Space) && (canJump == true || (isHangingOntoLedge && canJumpOffLedge == true)))
         {
+            rb.drag = 0.5f;
+            rb.angularDrag = 0.05f;
             timesJumped++;
             isJumping = true;
             jumpCountTimer = jumpTime;
             AudioSource.PlayClipAtPoint(JumpSound, playerTransform.position);
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpForce, rb.velocity.z);
             isHangingOntoLedge = false;
+            canFall = true;
         }
 
         if (Input.GetKey(KeyCode.Space) && isJumping == true)
@@ -318,8 +316,7 @@ public class playerMovementBehaviour : MonoBehaviour
             Invoke("Respawn", 2);
         }
 
-        Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
-        Debug.DrawRay(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left) * 1f, Color.red);
+        //Debug.DrawRay(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left) * 1f, Color.red);
     }
 
     private void FixedUpdate()
@@ -328,19 +325,13 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             Vector3 gravity = globalGravity * gravityScale * Vector3.up;
             rb.AddForce(gravity, ForceMode.Acceleration);
-            if (!isGrounded)
+            if (rb.velocity.y < 0)
             {
                 if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, groundMask))
                 {
-                    //canFall = false;
-                    //print("On Ledge");
-                    if (Physics.Raycast(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left), out RaycastHit hitInfoTwo, 1f, groundMask))
-                    {
-                        isHangingOntoLedge = true;
-                        transform.position = transform.position;
-                        //Move the player away from the ledge some, prevent falling
-                        print("On Ledge");
-                    }
+                    isHangingOntoLedge = true;
+                    //Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
+                    print("On Ledge");
                 }
             }
         }

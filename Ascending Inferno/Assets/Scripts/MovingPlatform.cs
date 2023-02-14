@@ -15,11 +15,16 @@ public class MovingPlatform : MonoBehaviour
 
     public GameObject position1;
     public GameObject position2;
+    public GameObject startPos;
+
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -29,7 +34,16 @@ public class MovingPlatform : MonoBehaviour
         {
             Movement();
         }
+        else
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+            gameObject.transform.position = startPos.transform.position;
+        }
         
+        if (player.GetComponent<playerMovementBehaviour>().health == 0)
+        {
+            active = false;
+        }
         
     }
 
