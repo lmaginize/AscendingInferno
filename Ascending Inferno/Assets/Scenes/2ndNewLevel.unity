@@ -989,17 +989,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -2174,17 +2166,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -3643,17 +3627,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -3997,17 +3973,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -5144,17 +5112,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -17271,6 +17231,7 @@ GameObject:
   - component: {fileID: 1288951615}
   - component: {fileID: 1288951614}
   - component: {fileID: 1288951613}
+  - component: {fileID: 1288951623}
   m_Layer: 0
   m_Name: PlayerObj
   m_TagString: Player
@@ -17757,8 +17718,8 @@ MonoBehaviour:
   canFall: 1
   mainCamera: {fileID: 0}
   JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
-  bounceMat: {fileID: 0}
-  normalMat: {fileID: 0}
+  bounceMat: {fileID: 13400000, guid: bfbd72f7d5d428b4fa5db30425fad261, type: 2}
+  normalMat: {fileID: 13400000, guid: 3806e8e1df22948b8a064b378efba69d, type: 2}
   invincible: 0
   startingLocation: {fileID: 854825646}
   Lava: {fileID: 466731726}
@@ -17869,6 +17830,21 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1288951623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288951611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2d8ad92c473c746b393b87ee02f7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pmb: {fileID: 1288951621}
+  bounceMat: {fileID: 13400000, guid: bfbd72f7d5d428b4fa5db30425fad261, type: 2}
+  normalMat: {fileID: 13400000, guid: 3806e8e1df22948b8a064b378efba69d, type: 2}
 --- !u!1001 &1296555302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18780,17 +18756,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -19177,17 +19145,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -20190,17 +20150,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -25076,17 +25028,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
@@ -25705,17 +25649,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1953067728}
     m_Modifications:
-    - target: {fileID: 1580413674, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_Name
       value: SpikeNew Variant (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2718640892085932384, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3382587944644791258, guid: 13b408b2a2197984e87c66ea874f7cf1, type: 3}
       propertyPath: m_RootOrder
