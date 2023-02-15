@@ -18,6 +18,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public float timesJumped;
     public float maxAmountOfJumps;
     public Material playerMat;
+    public bool isPlayerCamInBehindTheBackView;
 
     public enum playerMoveState { SideScrollerView, BehindTheBackView };
     public playerMoveState PlayerState;
@@ -92,37 +93,44 @@ public class playerMovementBehaviour : MonoBehaviour
 
         verticalLedgeCheckBuffer = new Vector3(0, 1.03f, 0.89f * ledgeCheckSide);
 
-        if (hInput < 0)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            isPlayerFacingRight = false;
-            ledgeCheckSide = -1;
-        }
-        else if (hInput > 0)
-        {
-            isPlayerFacingRight = true;
-            ledgeCheckSide = 1;
+            isPlayerCamInBehindTheBackView = !isPlayerCamInBehindTheBackView;
         }
 
         if (canMove == true && isHangingOntoLedge == false)
         {
             rb.drag = 0.5f;
             rb.angularDrag = 0.05f;
-            switch (PlayerState)
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            switch (isPlayerCamInBehindTheBackView)
             {
-                case playerMoveState.SideScrollerView:
+                case false:
                     rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    if (hInput < 0)
+                    {
+                        isPlayerFacingRight = false;
+                        ledgeCheckSide = -1;
+                    }
+                    else if (hInput > 0)
+                    {
+                        isPlayerFacingRight = true;
+                        ledgeCheckSide = 1;
+                    }
                     break;
-                case playerMoveState.BehindTheBackView:
-                    rb.velocity = new Vector3(hInput * moveSpeed, rb.velocity.y, vInput * moveSpeed);
-                    rb.constraints = RigidbodyConstraints.FreezePositionZ;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
-                    break;
-                default: //The default is the sidescroller controls
-                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
-                    rb.constraints = RigidbodyConstraints.FreezePositionX;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                case true:
+                    rb.velocity = new Vector3(0, rb.velocity.y, vInput * moveSpeed);
+                    if (vInput < 0)
+                    {
+                        isPlayerFacingRight = false;
+                        ledgeCheckSide = -1;
+                    }
+                    else if (vInput > 0)
+                    {
+                        isPlayerFacingRight = true;
+                        ledgeCheckSide = 1;
+                    }
                     break;
             }
         }
