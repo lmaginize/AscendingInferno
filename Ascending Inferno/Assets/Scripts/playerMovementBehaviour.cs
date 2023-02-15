@@ -521,7 +521,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canMove = true;
             jumpForce = 15;
             Lava.transform.position = new Vector3(-25, gameObject.transform.position.y - 392f, -38);
-            Lava.GetComponent<lavaBehaviour>().lavaSpeed = 213;
+            Lava.GetComponent<lavaBehaviour>().lavaSpeed = 150;
             health = 3;
             gc.UpdateHealthUI();
         }
