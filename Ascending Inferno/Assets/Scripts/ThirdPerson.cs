@@ -50,7 +50,7 @@ public class ThirdPerson : MonoBehaviour
         {
             sideScrollCam.SetActive(true);
             thirdPersonCam.SetActive(false);
-            shoulderCam.SetActive(false);
+            //shoulderCam.SetActive(false);
 
             sideScrollCam.transform.position = playerObj.position + offset;
         }
@@ -58,11 +58,10 @@ public class ThirdPerson : MonoBehaviour
         {
             sideScrollCam.SetActive(false);
             thirdPersonCam.SetActive(true);
-            shoulderCam.SetActive(true);
 
             // switch thirdperson styles
-            if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Shoulder);
+            //if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
+            //if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Shoulder);
 
             // rotate orientation
             Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
