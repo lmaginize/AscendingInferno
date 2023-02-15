@@ -462,6 +462,15 @@ public class playerMovementBehaviour : MonoBehaviour
         }
     }
 
+    public void checkHealthed()
+    {
+        if (health < 3)
+        {
+            health = 3;
+            gc.UpdateHealthUI();
+        }
+    }
+
     public void PointChecked()
     {
         startingLocation.position = gameObject.transform.position;
