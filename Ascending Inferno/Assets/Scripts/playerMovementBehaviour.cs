@@ -90,45 +90,22 @@ public class playerMovementBehaviour : MonoBehaviour
 
         verticalLedgeCheckBuffer = new Vector3(0, 1.03f, 0.89f * ledgeCheckSide);
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            isPlayerCamInBehindTheBackView = !isPlayerCamInBehindTheBackView;
-        }
-
         if (canMove == true && isHangingOntoLedge == false)
         {
             rb.drag = 0.5f;
             rb.angularDrag = 0.05f;
             rb.constraints = RigidbodyConstraints.FreezePositionX;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
-            switch (isPlayerCamInBehindTheBackView)
+            rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
+            if (hInput < 0)
             {
-                case false:
-                    rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
-                    if (hInput < 0)
-                    {
-                        isPlayerFacingRight = false;
-                        ledgeCheckSide = -1;
-                    }
-                    else if (hInput > 0)
-                    {
-                        isPlayerFacingRight = true;
-                        ledgeCheckSide = 1;
-                    }
-                    break;
-                case true:
-                    rb.velocity = new Vector3(0, rb.velocity.y, vInput * moveSpeed);
-                    if (vInput < 0)
-                    {
-                        isPlayerFacingRight = false;
-                        ledgeCheckSide = -1;
-                    }
-                    else if (vInput > 0)
-                    {
-                        isPlayerFacingRight = true;
-                        ledgeCheckSide = 1;
-                    }
-                    break;
+               isPlayerFacingRight = false;
+               ledgeCheckSide = -1;
+            }
+            else if (hInput > 0)
+            {
+               isPlayerFacingRight = true;
+               ledgeCheckSide = 1;
             }
         }
 
