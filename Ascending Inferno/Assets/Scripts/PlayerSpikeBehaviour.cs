@@ -51,6 +51,7 @@ public class PlayerSpikeBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("CheckPoint"))
         {
             pmb.PointChecked();
+            pmb.checkHealthed();
         }
         if (other.gameObject.CompareTag("CrouchZone"))
         {
