@@ -20,9 +20,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public Material playerMat;
     public bool isPlayerCamInBehindTheBackView;
 
-    public enum playerMoveState { SideScrollerView, BehindTheBackView };
-    public playerMoveState PlayerState;
-
     public bool isPlayerFacingRight;
     public Transform playerTransform;
     public bool isHangingOntoLedge;
