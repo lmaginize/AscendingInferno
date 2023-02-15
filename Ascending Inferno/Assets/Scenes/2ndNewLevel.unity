@@ -3611,10 +3611,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 299301244}
-  - component: {fileID: 299301248}
-  - component: {fileID: 299301247}
-  - component: {fileID: 299301246}
-  - component: {fileID: 299301245}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3639,218 +3635,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &299301245
-LineRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299301243}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 873c32a8f0274c2489afd7e4e9f93bea, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 1
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0.3585513
-        value: 0.32278734
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
-      key1: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_ColorSpace: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MaskInteraction: 0
-  m_UseWorldSpace: 1
-  m_Loop: 0
-  m_ApplyActiveColorSpace: 1
---- !u!114 &299301246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299301243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8932dc650fe9e34488174d16c848009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hook: {fileID: 170628337}
-  rb: {fileID: 299301248}
-  rope: {fileID: 299301245}
-  grappleSpeed: 30
-  grappleLayer:
-    serializedVersion: 2
-    m_Bits: 201
-  cooldownTime: 3
-  cooldown: 0
-  range: 8
-  grapple: {fileID: 1288951613}
---- !u!114 &299301247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299301243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22738881185bb40cdbf6e7700eecdb9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 10
-  rb: {fileID: 299301248}
-  jumpForce: 16
-  groundCheck: {fileID: 1019118281}
-  groundDistance: 0.3
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  isJumping: 0
-  jumpTime: 0.5
-  canMove: 0
-  canJump: 0
-  canDash: 0
-  timesJumped: 0
-  maxAmountOfJumps: 1
-  playerMat: {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
-  PlayerState: 0
-  isPlayerFacingRight: 0
-  playerTransform: {fileID: 0}
-  isHangingOntoLedge: 0
-  canJumpOffLedge: 0
-  ledgeCheckSide: 0
-  verticalLedgeCheckBuffer: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  dashXAmount: 25
-  dashYAmount: 10
-  startDashTime: 0.3
-  dashTime: 0
-  isDashing: 0
-  dashY: 0
-  dashZ: 0
-  dashCoolDownTime: 1
-  dashCoolDownCountDown: 0
-  health: 3
-  gravityScale: 2.5
-  canFall: 1
-  mainCamera: {fileID: 0}
-  JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
-  bounceMat: {fileID: 0}
-  normalMat: {fileID: 0}
-  invincible: 0
-  startingLocation: {fileID: 854825646}
-  Lava: {fileID: 466731726}
-  canCrouch: 0
-  isCrouched: 0
-  inCrouchZone: 0
---- !u!54 &299301248
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299301243}
-  serializedVersion: 4
-  m_Mass: 90
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1001 &303608913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12768,7 +12552,7 @@ MonoBehaviour:
   orientation: {fileID: 1411680060}
   player: {fileID: 299301244}
   playerObj: {fileID: 1288951612}
-  rb: {fileID: 299301248}
+  rb: {fileID: 0}
   rotationSpeed: 7
   shoulderLookAt: {fileID: 445210189}
   thirdPersonCam: {fileID: 449720184}
@@ -17479,7 +17263,11 @@ GameObject:
   - component: {fileID: 1288951612}
   - component: {fileID: 1288951618}
   - component: {fileID: 1288951617}
+  - component: {fileID: 1288951620}
   - component: {fileID: 1288951616}
+  - component: {fileID: 1288951621}
+  - component: {fileID: 1288951619}
+  - component: {fileID: 1288951622}
   - component: {fileID: 1288951615}
   - component: {fileID: 1288951614}
   - component: {fileID: 1288951613}
@@ -17869,6 +17657,218 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288951611}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1288951619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288951611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8932dc650fe9e34488174d16c848009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hook: {fileID: 170628337}
+  rb: {fileID: 1288951620}
+  rope: {fileID: 1288951622}
+  grappleSpeed: 80
+  grappleLayer:
+    serializedVersion: 2
+    m_Bits: 201
+  cooldownTime: 3
+  cooldown: 0
+  range: 8
+  grapple: {fileID: 1288951613}
+--- !u!54 &1288951620
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288951611}
+  serializedVersion: 4
+  m_Mass: 90
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!114 &1288951621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288951611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22738881185bb40cdbf6e7700eecdb9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  rb: {fileID: 1288951620}
+  jumpForce: 16
+  groundCheck: {fileID: 1019118281}
+  groundDistance: 0.3
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isJumping: 0
+  jumpTime: 0.5
+  canMove: 0
+  canJump: 0
+  canDash: 0
+  timesJumped: 0
+  maxAmountOfJumps: 1
+  playerMat: {fileID: 2100000, guid: 7c271dbc8f33446e5b48dfc99cd4ec7b, type: 2}
+  PlayerState: 0
+  isPlayerFacingRight: 0
+  playerTransform: {fileID: 0}
+  isHangingOntoLedge: 0
+  canJumpOffLedge: 0
+  ledgeCheckSide: 0
+  verticalLedgeCheckBuffer: {x: 0, y: 0, z: 0}
+  isGrounded: 0
+  dashXAmount: 25
+  dashYAmount: 10
+  startDashTime: 0.3
+  dashTime: 0
+  isDashing: 0
+  dashY: 0
+  dashZ: 0
+  dashCoolDownTime: 1
+  dashCoolDownCountDown: 0
+  health: 3
+  gravityScale: 2.5
+  canFall: 1
+  mainCamera: {fileID: 0}
+  JumpSound: {fileID: 8300000, guid: 61de238b017fa0c4a9104c9303aa417a, type: 3}
+  bounceMat: {fileID: 0}
+  normalMat: {fileID: 0}
+  invincible: 0
+  startingLocation: {fileID: 854825646}
+  Lava: {fileID: 466731726}
+  canCrouch: 0
+  isCrouched: 0
+  inCrouchZone: 0
+--- !u!120 &1288951622
+LineRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288951611}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 873c32a8f0274c2489afd7e4e9f93bea, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.3585513
+        value: 0.32278734
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+      key1: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MaskInteraction: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
+  m_ApplyActiveColorSpace: 1
 --- !u!1001 &1296555302
 PrefabInstance:
   m_ObjectHideFlags: 0

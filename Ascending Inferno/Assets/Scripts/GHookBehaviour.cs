@@ -29,7 +29,7 @@ public class GHookBehaviour : MonoBehaviour
                 isGrappling = true;
                 grapplePoint = hit.point;
                 hook.transform.position = hit.point;
-                hook.SetActive(true);
+                //hook.SetActive(true);
                 rope.enabled = true;
                 rope.SetPosition(0, transform.position);
                 rope.SetPosition(1, grapplePoint);
@@ -49,7 +49,7 @@ public class GHookBehaviour : MonoBehaviour
         if (Input.GetMouseButtonUp(1) || (grapplePoint - transform.position).magnitude <= 0.1f)
         {
             isGrappling = false;
-            hook.SetActive(false);
+            //hook.SetActive(false);
             rope.enabled = false;
             
         }
