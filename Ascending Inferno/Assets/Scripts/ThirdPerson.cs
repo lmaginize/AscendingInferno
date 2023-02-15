@@ -17,6 +17,8 @@ public class ThirdPerson : MonoBehaviour
     public GameObject shoulderCam;
     public GameObject sideScrollCam;
 
+    public Vector3 offset = new Vector3(6f, 2f, 0);
+
     private bool switchToThirdPersonCam = false;
     private bool switchToSideScrollCam = false;
 
@@ -49,6 +51,9 @@ public class ThirdPerson : MonoBehaviour
             sideScrollCam.SetActive(true);
             thirdPersonCam.SetActive(false);
             shoulderCam.SetActive(false);
+
+            Vector3 offset = new Vector3(6f, 2f, 0);
+            sideScrollCam.transform.position = playerObj.position + offset;
         }
         else if (switchToThirdPersonCam)
         {
