@@ -15,6 +15,10 @@ public class ThirdPerson : MonoBehaviour
 
     public GameObject thirdPersonCam;
     public GameObject shoulderCam;
+    public GameObject sideScrollCam;
+
+    private bool switchToThirdPersonCam = false;
+    private bool switchToSideScrollCam = false;
 
     public CameraStyle currentStyle;
 
@@ -28,38 +32,58 @@ public class ThirdPerson : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        switchToSideScrollCam = true;
     }
 
     void Update()
     {
-
-        // switch styles
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Shoulder);
-
-        // rotate orientation
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
-
-        // rotate player object
-        if (currentStyle == CameraStyle.Basic)
+        // switch cameras
+        if(Input.GetKeyDown(KeyCode.C))
         {
-            float hInput = Input.GetAxis("Horizontal");
-            float vInput = Input.GetAxis("Vertical");
-            Vector3 inputDir = orientation.forward * vInput + orientation.right * hInput;
-
-            if (inputDir != Vector3.zero)
-            {
-                playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-            }
+            switchToSideScrollCam = !switchToSideScrollCam;
+            switchToThirdPersonCam = !switchToThirdPersonCam;
         }
 
-        else if (currentStyle == CameraStyle.Shoulder)
+        if (switchToSideScrollCam)
         {
-            Vector3 dirToShoulderLookAt = shoulderLookAt.position - new Vector3(transform.position.x, shoulderLookAt.position.y, transform.position.z);
-            orientation.forward = dirToShoulderLookAt.normalized;
+            sideScrollCam.SetActive(true);
+            thirdPersonCam.SetActive(false);
+            shoulderCam.SetActive(false);
+        }
+        else if (switchToThirdPersonCam)
+        {
+            sideScrollCam.SetActive(false);
+            thirdPersonCam.SetActive(true);
+            shoulderCam.SetActive(true);
 
-            playerObj.forward = dirToShoulderLookAt.normalized;
+            // switch thirdperson styles
+            if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Shoulder);
+
+            // rotate orientation
+            Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+            orientation.forward = viewDir.normalized;
+
+            // rotate player object
+            if (currentStyle == CameraStyle.Basic)
+            {
+                float hInput = Input.GetAxis("Horizontal");
+                float vInput = Input.GetAxis("Vertical");
+                Vector3 inputDir = orientation.forward * vInput + orientation.right * hInput;
+
+                if (inputDir != Vector3.zero)
+                {
+                    playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+                }
+            }
+
+            else if (currentStyle == CameraStyle.Shoulder)
+            {
+                Vector3 dirToShoulderLookAt = shoulderLookAt.position - new Vector3(transform.position.x, shoulderLookAt.position.y, transform.position.z);
+                orientation.forward = dirToShoulderLookAt.normalized;
+
+                playerObj.forward = dirToShoulderLookAt.normalized;
+            }
         }
     }
 
