@@ -12774,7 +12774,7 @@ MonoBehaviour:
   thirdPersonCam: {fileID: 449720184}
   shoulderCam: {fileID: 661703994}
   sideScrollCam: {fileID: 594675530}
-  offset: {x: 6, y: 3, z: 0}
+  offset: {x: 8, y: 3, z: 0}
   currentStyle: 0
 --- !u!114 &863142169
 MonoBehaviour:
@@ -17515,7 +17515,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288951611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4f4816ec58772da4eb7d282bd0978e21, type: 3}
@@ -17611,7 +17611,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288951611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 38d7d2fd086bc744093801fffd9c9c33, type: 3}
@@ -17707,7 +17707,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288951611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 343435d9af548e441a5dc93581ecfffe, type: 3}

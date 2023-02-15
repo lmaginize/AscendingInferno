@@ -52,7 +52,6 @@ public class ThirdPerson : MonoBehaviour
             thirdPersonCam.SetActive(false);
             shoulderCam.SetActive(false);
 
-            Vector3 offset = new Vector3(6f, 2f, 0);
             sideScrollCam.transform.position = playerObj.position + offset;
         }
         else if (switchToThirdPersonCam)
