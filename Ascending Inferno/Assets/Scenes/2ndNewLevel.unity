@@ -6289,7 +6289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021c3d37a3e834778b9929e05da30aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lavaSpeed: 275
+  lavaSpeed: 150
   lavaRB: {fileID: 466731728}
 --- !u!65 &466731730
 BoxCollider:
