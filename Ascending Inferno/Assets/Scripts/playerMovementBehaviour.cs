@@ -66,6 +66,8 @@ public class playerMovementBehaviour : MonoBehaviour
     public bool isCrouched = false;
     public bool inCrouchZone;
 
+    public bool hookable;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,13 +101,13 @@ public class playerMovementBehaviour : MonoBehaviour
             rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
             if (hInput < 0)
             {
-               isPlayerFacingRight = false;
-               ledgeCheckSide = -1;
+                isPlayerFacingRight = false;
+                ledgeCheckSide = -1;
             }
             else if (hInput > 0)
             {
-               isPlayerFacingRight = true;
-               ledgeCheckSide = 1;
+                isPlayerFacingRight = true;
+                ledgeCheckSide = 1;
             }
         }
 
@@ -137,7 +139,7 @@ public class playerMovementBehaviour : MonoBehaviour
             canCrouch = false;
         }
 
-        if (isDashing == false && isHangingOntoLedge == false && invincible == false)
+        if (isDashing == false && isHangingOntoLedge == false && invincible == false && hookable == false && isCrouched == false)
         {
             playerMat.color = Color.white;
         }
@@ -296,7 +298,7 @@ public class playerMovementBehaviour : MonoBehaviour
             jumpForce = 0;
             Time.timeScale = 0f;
             Time.timeScale = 1f;
-            Invoke("Respawn", 2);
+            Invoke("Respawn", 2f);
         }
 
         //Debug.DrawRay(transform.position + horizontalLedgeCheckBuffer, transform.TransformDirection(Vector3.left) * 1f, Color.red);
@@ -416,10 +418,7 @@ public class playerMovementBehaviour : MonoBehaviour
       } */
     public void Lavaed()
     {
-        gameObject.GetComponent<CapsuleCollider>().enabled = false;
-        mainCamera.transform.parent = null;
-        canMove = false;
-        canJump = false;
+        
         health = 0;
     }
 
@@ -515,18 +514,33 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             Time.timeScale = 1f;
             transform.position = startingLocation.position;
-            gameObject.GetComponent<CapsuleCollider>().enabled = true;
+            gameObject.GetComponentInChildren<CapsuleCollider>().enabled = true;
+            gameObject.GetComponentInChildren<CapsuleCollider>().material = normalMat;
             mainCamera.transform.parent = playerTransform;
             mainCamera.transform.position = new Vector3(playerTransform.position.x + 8.38f, playerTransform.position.y + 3.4f, playerTransform.position.z);
             canMove = true;
             jumpForce = 15;
-            Lava.transform.position = new Vector3(0, gameObject.transform.position.y - 290f, 0);
+            Lava.transform.position = new Vector3(-25, gameObject.transform.position.y - 392f, -38);
             Lava.GetComponent<lavaBehaviour>().lavaSpeed = 213;
             health = 3;
             gc.UpdateHealthUI();
         }
     }
 
+    public void Hookable()
+    {
+        hookable = true;
+        if (isDashing == false && isHangingOntoLedge == false && invincible == false && isCrouched == false)
+        {
+            playerMat.color = Color.cyan;
+        }
+            
+    }
+
+    public void UnHookable()
+    {
+        hookable = false;
+    }
     public void Hello()
     {
         print("hello");
