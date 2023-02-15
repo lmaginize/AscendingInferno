@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovementBehaviour : MonoBehaviour
@@ -49,7 +47,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public float gravityScale;
     public static float globalGravity = -9.81f;
     public bool canFall;
-    
+
     public GameObject mainCamera;
 
     public static bool isDone;
@@ -74,8 +72,8 @@ public class playerMovementBehaviour : MonoBehaviour
     void Start()
     {
         gc = FindObjectOfType<GameController>();
-        
-        rb = GetComponent<Rigidbody>();
+
+        rb = GetComponentInChildren<Rigidbody>();
         rb.useGravity = false;
         isPlayerFacingRight = true;
 
@@ -98,7 +96,8 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             isPlayerFacingRight = false;
             ledgeCheckSide = -1;
-        } else if(hInput > 0)
+        }
+        else if (hInput > 0)
         {
             isPlayerFacingRight = true;
             ledgeCheckSide = 1;
@@ -134,11 +133,12 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             timesJumped = 0;
             canJump = true;
-            if(dashCoolDownCountDown <= 0)
+            if (dashCoolDownCountDown <= 0)
             {
                 canDash = true;
             }
-        } else
+        }
+        else
         {
             if (!(timesJumped < maxAmountOfJumps))
             {
@@ -175,7 +175,8 @@ public class playerMovementBehaviour : MonoBehaviour
 
             canJump = true;
             canJumpOffLedge = true;
-        } else
+        }
+        else
         {
             canMove = true;
             canFall = true;
@@ -307,7 +308,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
         if (health <= 0)
         {
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.GetComponentInChildren<CapsuleCollider>().enabled = false;
             mainCamera.transform.parent = null;
             canMove = false;
             jumpForce = 0;
@@ -321,7 +322,7 @@ public class playerMovementBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canFall == true)
+        if (canFall == true)
         {
             Vector3 gravity = globalGravity * gravityScale * Vector3.up;
             rb.AddForce(gravity, ForceMode.Acceleration);
@@ -337,98 +338,178 @@ public class playerMovementBehaviour : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*  private void OnTriggerEnter(Collider other)
+     {
+
+         if (other.gameObject.CompareTag("Lava"))
+         {
+             gameObject.GetComponent<CapsuleCollider>().enabled = false;
+             mainCamera.transform.parent = null;
+             canMove = false;
+             canJump = false;
+             health = 0;
+         }
+
+         if (other.gameObject.CompareTag("EndTrigger"))
+         {
+             isDone = true;
+         }
+
+         if (other.gameObject.CompareTag("SpikeArea"))
+         {
+             GetComponent<Collider>().material = bounceMat;
+         }
+
+         if (other.gameObject.CompareTag("HealthKit"))
+         {
+             hk = FindObjectOfType<healthKit>();
+             if (health < 3)
+             {
+                 health++;
+                 gc.UpdateHealthUI();
+                 hk.OnPickup();
+             }
+
+         }
+
+         if (other.gameObject.CompareTag("CheckPoint"))
+         {
+             startingLocation.position = other.transform.position;
+         }
+         /*
+                 if (other.gameObject.CompareTag("CrouchZone"))
+                 {
+                     gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+                     playerMat.color = Color.red;
+                     isCrouched = true;
+                     inCrouchZone = true;
+                 }
+     } */
+
+    /*  private void OnTriggerExit(Collider other)
     {
-
-        if (other.gameObject.CompareTag("Lava"))
-        {
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            mainCamera.transform.parent = null;
-            canMove = false;
-            canJump = false;
-            health = 0;
-        }
-
-        if (other.gameObject.CompareTag("EndTrigger"))
-        {
-            isDone = true;
-        }
-
-        if(other.gameObject.CompareTag("SpikeArea"))
-        {
-            GetComponent<Collider>().material = bounceMat;
-        }
-        
-        if (other.gameObject.CompareTag("HealthKit"))
-        {
-            hk = FindObjectOfType<healthKit>();
-            if(health < 3){
-                health++;
-                gc.UpdateHealthUI();
-                hk.OnPickup();
-            }
-
-        }
-
-        if (other.gameObject.CompareTag("CheckPoint"))
-        {
-            startingLocation.position = other.transform.position;
-        }
-/*
-        if (other.gameObject.CompareTag("CrouchZone"))
-        {
-            gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
-            playerMat.color = Color.red;
-            isCrouched = true;
-            inCrouchZone = true;
-        }*/
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.CompareTag("SpikeArea"))
+        if (other.gameObject.CompareTag("SpikeArea"))
         {
             GetComponent<Collider>().material = normalMat;
         }
 
-       /* if (other.gameObject.CompareTag("CrouchZone"))
-        {
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
-            isCrouched = false;
-            inCrouchZone = false;
-        }*/
+        /* if (other.gameObject.CompareTag("CrouchZone"))
+         {
+             gameObject.transform.localScale = new Vector3(1, 1, 1);
+             isCrouched = false;
+             inCrouchZone = false;
+         }
+    } */
+
+    /*  private void OnCollisionEnter(Collision other)
+      {
+          if (other.gameObject.CompareTag("Spike"))
+          {
+              if (invincible == false)
+              {
+                  health--;
+                  invincible = true;
+                  playerMat.color = Color.yellow;
+                  gc.UpdateHealthUI();
+
+                  Invoke("Uninvincible", 1f);
+              }
+
+          }
+
+          if (other.gameObject.CompareTag("Hazard"))
+          {
+              if (invincible == false)
+              {
+                  health--;
+                  invincible = true;
+                  playerMat.color = Color.yellow;
+                  gc.UpdateHealthUI();
+
+                  Invoke("Uninvincible", 1f);
+              }
+          }
+
+
+      } */
+    public void Lavaed()
+    {
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        mainCamera.transform.parent = null;
+        canMove = false;
+        canJump = false;
+        health = 0;
     }
 
-    private void OnCollisionEnter(Collision other)
+    public void Doned()
     {
-        if (other.gameObject.CompareTag("Spike"))
+        isDone = true;
+    }
+
+    public void Bounced()
+    {
+        print("hopefully bounced");
+    }
+
+    public void Healthed()
+    {
+        hk = FindObjectOfType<healthKit>();
+        if (health < 3)
         {
-            if (invincible == false)
-            {
-                health--;
-                invincible = true;
-                playerMat.color = Color.yellow;
-                gc.UpdateHealthUI();
-
-                Invoke("Uninvincible", 1f);
-            }
-           
+            health++;
+            gc.UpdateHealthUI();
+            hk.OnPickup();
         }
+    }
 
-        if (other.gameObject.CompareTag("Hazard"))
+    public void PointChecked()
+    {
+        startingLocation.position = gameObject.transform.position;
+    }
+
+    public void CrouchZoning()
+    {
+        gameObject.transform.localScale = new Vector3(1, 0.5f, 1);
+        playerMat.color = Color.red;
+        isCrouched = true;
+        inCrouchZone = true;
+    }
+
+    public void BounceNo()
+    {
+        print("hopefully unbounced");
+    }
+
+    public void CrouchZoneNo()
+    {
+        gameObject.transform.localScale = new Vector3(1, 1, 1);
+        isCrouched = false;
+        inCrouchZone = false;
+    }
+    public void Spiked()
+    {
+        if (invincible == false)
         {
-            if (invincible == false)
-            {
-                health--;
-                invincible = true;
-                playerMat.color = Color.yellow;
-                gc.UpdateHealthUI();
+            health--;
+            invincible = true;
+            playerMat.color = Color.yellow;
+            gc.UpdateHealthUI();
 
-                Invoke("Uninvincible", 1f);
-            }
+            Invoke("Uninvincible", 1f);
         }
+    }
 
+    public void Hazared()
+    {
+        if (invincible == false)
+        {
+            health--;
+            invincible = true;
+            playerMat.color = Color.yellow;
+            gc.UpdateHealthUI();
 
+            Invoke("Uninvincible", 1f);
+        }
     }
 
     public void Uninvincible()
@@ -453,5 +534,10 @@ public class playerMovementBehaviour : MonoBehaviour
             health = 3;
             gc.UpdateHealthUI();
         }
+    }
+
+    public void Hello()
+    {
+        print("hello");
     }
 }
