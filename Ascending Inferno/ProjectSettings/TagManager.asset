@@ -13,6 +13,7 @@ TagManager:
   - CrouchZone
   - Heat
   - Hazard
+  - Object
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Ground
   - Wall
   - Heat
-  - 
+  - Moving Platform
   - 
   - 
   - 

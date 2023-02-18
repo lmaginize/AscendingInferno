@@ -2153,6 +2153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Downwards Stopping Vertical Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: afa3edd1ca738d44c81dcaac7d7e9d2c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913487, guid: afa3edd1ca738d44c81dcaac7d7e9d2c, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.579999
@@ -4071,6 +4075,10 @@ PrefabInstance:
     - target: {fileID: 2108514709817425599, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_Name
       value: Vertical Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913520, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_Material
@@ -6778,6 +6786,10 @@ PrefabInstance:
     - target: {fileID: 4853667190825276890, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
       propertyPath: m_LocalPosition.z
       value: 26.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553759648582830464, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5553759648582830465, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
       propertyPath: rb
@@ -10060,6 +10072,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 4.4
       objectReference: {fileID: 0}
+    - target: {fileID: 5553759648582830464, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5553759648582830465, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
       propertyPath: rb
       value: 
@@ -10884,6 +10900,10 @@ PrefabInstance:
     - target: {fileID: 2108514709817425599, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913487, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17409,6 +17429,9 @@ MonoBehaviour:
   groundDistance: 0.3
   groundMask:
     serializedVersion: 2
+    m_Bits: 576
+  ledgeMask:
+    serializedVersion: 2
     m_Bits: 64
   isJumping: 0
   jumpTime: 0.5
@@ -18479,7 +18502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 1.047336, z: -7.005949}
+  m_FollowOffset: {x: 0, y: 0.5058392, z: -6.742214}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -19089,7 +19112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 1.047336, z: -7.005949}
+  m_FollowOffset: {x: 0, y: 0.5058392, z: -6.742214}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -21101,6 +21124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vertical Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913487, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.81
@@ -22425,7 +22452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 1.047336, z: -7.005949}
+  m_FollowOffset: {x: 0, y: 0.5058392, z: -6.742214}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -25103,6 +25130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vertical Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913487, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 10.57
@@ -25933,6 +25964,10 @@ PrefabInstance:
     - target: {fileID: 2108514709817425599, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_Name
       value: Vertical Platform
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913484, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913487, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_LocalPosition.y

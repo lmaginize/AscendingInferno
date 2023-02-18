@@ -9,7 +9,8 @@ public class playerMovementBehaviour : MonoBehaviour
     public float jumpForce;
     public Transform groundCheck;
     public float groundDistance;
-    public LayerMask groundMask;
+    public LayerMask groundMask; //Ground and Moving Platforms
+    public LayerMask ledgeMask; //Just ground
     public bool isJumping;
     public float jumpTime;
     public bool canMove;
@@ -312,7 +313,7 @@ public class playerMovementBehaviour : MonoBehaviour
             rb.AddForce(gravity, ForceMode.Acceleration);
             if (rb.velocity.y < 0)
             {
-                if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, groundMask))
+                if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, ledgeMask))
                 {
                     isHangingOntoLedge = true;
                     //Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
