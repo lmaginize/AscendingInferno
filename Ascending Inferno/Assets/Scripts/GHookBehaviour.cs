@@ -17,10 +17,23 @@ public class GHookBehaviour : MonoBehaviour
     private Vector3 grapplePoint;
     public float range;
 
+    public playerMovementBehaviour pmb;
+
     public AudioSource grapple;
     // Update is called once per frame
     void Update()
     {
+        RaycastHit detect;
+        if (Physics.Raycast(transform.position, transform.up, out detect, range, grappleLayer))
+        {
+            pmb.Hookable();
+        }
+        else
+        {
+            pmb.UnHookable();
+        }
+
+
         if (Input.GetMouseButtonDown(1) && cooldown <= 0f)
         {
             RaycastHit hit;
@@ -29,7 +42,7 @@ public class GHookBehaviour : MonoBehaviour
                 isGrappling = true;
                 grapplePoint = hit.point;
                 hook.transform.position = hit.point;
-                hook.SetActive(true);
+                //hook.SetActive(true);
                 rope.enabled = true;
                 rope.SetPosition(0, transform.position);
                 rope.SetPosition(1, grapplePoint);
@@ -49,7 +62,7 @@ public class GHookBehaviour : MonoBehaviour
         if (Input.GetMouseButtonUp(1) || (grapplePoint - transform.position).magnitude <= 0.1f)
         {
             isGrappling = false;
-            hook.SetActive(false);
+            //hook.SetActive(false);
             rope.enabled = false;
             
         }

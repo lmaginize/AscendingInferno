@@ -7,18 +7,23 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {  
    // public GameObject startPopUp,endPopUp; // no longer needed
-    //[SerializeField] GameObject endTrigger; // no longer needed
+    [SerializeField] GameObject endTrigger; //final trigger to dictate end state.
+
+    [SerializeField] Transform lavaPos;
 
     //reference to Scripts
     private playerMovementBehaviour playerScript;
     private GHookBehaviour ghookScript;
 
     //vars for UI
-    public TMP_Text healthText;
+    public TMP_Text healthText, lavaPosText;
     public Slider healthSlider, grapplingSlider, dashSlider;
 
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         //gets a reference to scripts
         playerScript = FindObjectOfType<playerMovementBehaviour>();
         ghookScript = FindObjectOfType<GHookBehaviour>();
@@ -39,14 +44,11 @@ public class GameController : MonoBehaviour
    
     void Update()
     {
-       /* Destroy(startPopUp, 3); 
-
         if(playerMovementBehaviour.isDone)
         {
             EndGameState();
-        }*/
-
-        //restarts level
+        }
+           
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -54,8 +56,8 @@ public class GameController : MonoBehaviour
         UpdateGrapplingUI();
         UpdateDashUI();
 
-
-
+        string lavaPosNum = (lavaPos.transform.position.y.ToString("F0"));
+        lavaPosText.text = "Lava is " + lavaPosNum + " meters from you!";
     }
 
     /// <summary>
@@ -93,18 +95,14 @@ public class GameController : MonoBehaviour
             grapplingSlider.value = ghookScript.cooldown;
         }
     }
-   
+
     /// <summary>
     /// once the player is done with the level the following events will happen
     /// </summary>
-    /*private void EndGameState()
+    private void EndGameState()
     {
-        if (endPopUp != null)
-        {
-            //temp trigger, says the player is done
-            endPopUp.SetActive(true);
-            Destroy(endPopUp, 3);
-            endTrigger.SetActive(false);
-        }
-    }*/
+        SceneManager.LoadScene("WinScene");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 }
