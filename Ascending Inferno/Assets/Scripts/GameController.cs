@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         //gets a reference to scripts
         playerScript = FindObjectOfType<playerMovementBehaviour>();
         ghookScript = FindObjectOfType<GHookBehaviour>();
@@ -45,8 +48,8 @@ public class GameController : MonoBehaviour
         {
             EndGameState();
         }
-            //restarts level
-            if (Input.GetKeyDown(KeyCode.R))
+           
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -99,5 +102,7 @@ public class GameController : MonoBehaviour
     private void EndGameState()
     {
         SceneManager.LoadScene("WinScene");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
