@@ -9,16 +9,21 @@ public class GameController : MonoBehaviour
    // public GameObject startPopUp,endPopUp; // no longer needed
     [SerializeField] GameObject endTrigger; //final trigger to dictate end state.
 
+    [SerializeField] Transform lavaPos;
+
     //reference to Scripts
     private playerMovementBehaviour playerScript;
     private GHookBehaviour ghookScript;
 
     //vars for UI
-    public TMP_Text healthText;
+    public TMP_Text healthText, lavaPosText;
     public Slider healthSlider, grapplingSlider, dashSlider;
 
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         //gets a reference to scripts
         playerScript = FindObjectOfType<playerMovementBehaviour>();
         ghookScript = FindObjectOfType<GHookBehaviour>();
@@ -43,13 +48,16 @@ public class GameController : MonoBehaviour
         {
             EndGameState();
         }
-            //restarts level
-            if (Input.GetKeyDown(KeyCode.R))
+           
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         UpdateGrapplingUI();
         UpdateDashUI();
+
+        string lavaPosNum = (lavaPos.transform.position.y.ToString("F0"));
+        lavaPosText.text = "Lava is " + lavaPosNum + " meters from you!";
     }
 
     /// <summary>
@@ -94,5 +102,7 @@ public class GameController : MonoBehaviour
     private void EndGameState()
     {
         SceneManager.LoadScene("WinScene");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
