@@ -9,12 +9,14 @@ public class GameController : MonoBehaviour
    // public GameObject startPopUp,endPopUp; // no longer needed
     [SerializeField] GameObject endTrigger; //final trigger to dictate end state.
 
+    [SerializeField] Transform lavaPos;
+
     //reference to Scripts
     private playerMovementBehaviour playerScript;
     private GHookBehaviour ghookScript;
 
     //vars for UI
-    public TMP_Text healthText;
+    public TMP_Text healthText, lavaPosText;
     public Slider healthSlider, grapplingSlider, dashSlider;
 
     void Start()
@@ -50,6 +52,9 @@ public class GameController : MonoBehaviour
         }
         UpdateGrapplingUI();
         UpdateDashUI();
+
+        string lavaPosNum = (lavaPos.transform.position.y.ToString("F0"));
+        lavaPosText.text = "Lava is " + lavaPosNum + " meters from you!";
     }
 
     /// <summary>
