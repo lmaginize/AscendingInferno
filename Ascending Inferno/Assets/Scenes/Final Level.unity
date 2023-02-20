@@ -27322,7 +27322,7 @@ MonoBehaviour:
   groundDistance: 0.3
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   ledgeMask:
     serializedVersion: 2
     m_Bits: 64
