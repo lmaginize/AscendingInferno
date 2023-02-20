@@ -42,7 +42,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float dashCoolDownCountDown;
     public int health = 3;
 
-
     public float gravityScale;
     public static float globalGravity = -9.81f;
     public bool canFall;
