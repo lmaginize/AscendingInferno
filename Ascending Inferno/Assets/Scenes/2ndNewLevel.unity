@@ -3510,7 +3510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299301243}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 27, y: -27.6, z: -239.1}
+  m_LocalPosition: {x: 27, y: 49.1, z: -261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4095,6 +4095,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vertical Platform
       objectReference: {fileID: 0}
+    - target: {fileID: 2108514710204913487, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2108514710204913520, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
       propertyPath: m_Material
       value: 
@@ -4107,6 +4111,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1288951611}
+    - target: {fileID: 2108514711405284817, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0454917
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108514711652353056, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0454917
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108514711652353056, guid: d4f093666c8542a479da9299c8b571a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10191,10 +10207,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5553759648582830464, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 709445030}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
 --- !u!1 &709445021 stripped
 GameObject:
@@ -10211,20 +10224,6 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5553759648582830490, guid: 44935a85d1dce2a41a5996ceaad64782, type: 3}
   m_PrefabInstance: {fileID: 709445020}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &709445030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709445021}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44a46d9fc4d930243bd54301b76f35de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidbodies: []
-  lastPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &730515444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17485,12 +17484,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rb: {fileID: 1288951620}
-  jumpForce: 12
+  jumpForce: 14
   groundCheck: {fileID: 1019118281}
   groundDistance: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+  ledgeMask:
+    serializedVersion: 2
+    m_Bits: 0
   isJumping: 0
   jumpTime: 0.5
   canMove: 0
