@@ -42,7 +42,6 @@ public class playerMovementBehaviour : MonoBehaviour
     public float dashCoolDownCountDown;
     public int health = 3;
 
-
     public float gravityScale;
     public static float globalGravity = -9.81f;
     public bool canFall;
@@ -97,8 +96,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             rb.drag = 0.5f;
             rb.angularDrag = 0.05f;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
             rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
             if (hInput < 0)
             {
