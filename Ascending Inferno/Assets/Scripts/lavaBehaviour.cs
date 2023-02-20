@@ -7,6 +7,7 @@ public class lavaBehaviour : MonoBehaviour
     public float lavaSpeed;
     public Rigidbody lavaRB;
     private float defaultLavaSpeed;
+    private bool lavaDisabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,13 @@ public class lavaBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lavaRB.velocity = new Vector3(0,lavaSpeed * Time.deltaTime,0);
+        if(lavaDisabled == false){
+            lavaRB.velocity = new Vector3(0,lavaSpeed * Time.deltaTime,0);
+        }
+    }
+
+    public void lavaEnable(){
+        lavaDisabled = false;
     }
 
     public void LavaReset()
