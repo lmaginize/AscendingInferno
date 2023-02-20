@@ -146,7 +146,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             timesJumped = 1;
             playerMat.color = Color.blue;
-            print("is hung");
 
             canFall = false;
             canMove = false;
