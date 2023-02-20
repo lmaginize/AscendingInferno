@@ -20,6 +20,7 @@ public class playerMovementBehaviour : MonoBehaviour
     public float maxAmountOfJumps;
     public Material playerMat;
     public bool isPlayerCamInBehindTheBackView;
+    public float lavaRespawn;
 
     public bool isPlayerFacingRight;
     public Transform playerTransform;
@@ -296,6 +297,7 @@ public class playerMovementBehaviour : MonoBehaviour
             jumpForce = 0;
             Time.timeScale = 0f;
             Time.timeScale = 1f;
+            //Respawn();
             Invoke("Respawn", 2f);
         }
 
@@ -310,7 +312,7 @@ public class playerMovementBehaviour : MonoBehaviour
             rb.AddForce(gravity, ForceMode.Acceleration);
             if (rb.velocity.y < 0)
             {
-                if (Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, ledgeMask))
+                if ((Physics.Raycast(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down), out RaycastHit hitInfo, 1f, ledgeMask)) && health != 0)
                 {
                     isHangingOntoLedge = true;
                     //Debug.DrawRay(transform.position + verticalLedgeCheckBuffer, transform.TransformDirection(Vector3.down) * 1, Color.red);
@@ -518,7 +520,7 @@ public class playerMovementBehaviour : MonoBehaviour
             mainCamera.transform.position = new Vector3(playerTransform.position.x + 8.38f, playerTransform.position.y + 3.4f, playerTransform.position.z);
             canMove = true;
             jumpForce = 15;
-            Lava.transform.position = new Vector3(-25, gameObject.transform.position.y - 392f, -38);
+            Lava.transform.position = new Vector3(-25, gameObject.transform.position.y - lavaRespawn, -38);
             Lava.GetComponent<lavaBehaviour>().lavaSpeed = 150;
             health = 3;
             gc.UpdateHealthUI();
