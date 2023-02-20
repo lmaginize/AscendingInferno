@@ -9,6 +9,7 @@ public class SwitchBehaviour : MonoBehaviour
     public GameObject Platform;
     public GameObject Lava;
     public GameObject player;
+    public AudioClip Button;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class SwitchBehaviour : MonoBehaviour
         playerMovementBehaviour pb = player.GetComponent<playerMovementBehaviour>();
         if (collision.gameObject.Equals(player))
         {
+            AudioSource.PlayClipAtPoint(Button, transform.position);
             if (switchType == 0)
             {
                 Door.SetActive(false);
