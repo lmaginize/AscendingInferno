@@ -117,7 +117,7 @@ public class MovingPlatform : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + -1 * (transform.position - position2.transform.position), Speed * Time.deltaTime);
             }
-            if (towards2 == false)
+            else if (towards2 == false)
             {
                 transform.position = Vector3.MoveTowards(transform.position, transform.position + -1 * (transform.position - position1.transform.position), Speed * Time.deltaTime);
             }
