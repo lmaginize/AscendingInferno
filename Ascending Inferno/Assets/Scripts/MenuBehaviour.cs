@@ -4,9 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuBehaviour : MonoBehaviour
 {
-    public void Play()
+    //Load version 1
+    public void PlayVersion1()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void PlayVersion2()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void Quit()
