@@ -137,7 +137,7 @@ public class MovingPlatform : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            other.transform.parent.transform.SetParent(this.transform);
+            other.transform.SetParent(this.transform);
         }
     }
 
@@ -145,7 +145,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.parent.transform.SetParent(null);
+            other.transform.SetParent(null);
         }
     }
 
