@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5553759648582830494}
   - component: {fileID: 5553759648582830465}
   - component: {fileID: 5553759648582830490}
+  - component: {fileID: 7633316766374840041}
   m_Layer: 6
   m_Name: Moving Platform (1)
   m_TagString: Untagged
@@ -252,15 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abae580aa4c379040a7362e7cbae2efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 500
-  forwardsSpeed: 500
-  reverseSpeed: -500
+  Speed: 5
   rb: {fileID: 0}
   active: 0
   pattern: 0
   position1: {fileID: 5553759649834841763}
   position2: {fileID: 5553759649119052303}
   startPos: {fileID: 190485783998548133}
+  towards2: 0
   player: {fileID: 0}
 --- !u!54 &5553759648582830490
 Rigidbody:
@@ -289,6 +289,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 114
   m_CollisionDetection: 0
+--- !u!65 &7633316766374840041
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553759648582830464}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.90414566, y: 0.38236344, z: 1.0000002}
+  m_Center: {x: 0.0016547354, y: 0.8538224, z: -0.0000002400206}
 --- !u!1 &5553759649119052303
 GameObject:
   m_ObjectHideFlags: 0

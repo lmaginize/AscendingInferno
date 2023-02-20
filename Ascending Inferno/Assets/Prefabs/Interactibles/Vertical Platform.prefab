@@ -154,15 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abae580aa4c379040a7362e7cbae2efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 500
-  forwardsSpeed: 500
-  reverseSpeed: -500
+  Speed: 5
   rb: {fileID: 2108514710204913486}
   active: 0
   pattern: 1
   position1: {fileID: 2108514711405284398}
   position2: {fileID: 2108514711652353057}
   startPos: {fileID: 5536734959778461077}
+  towards2: 0
   player: {fileID: 0}
 --- !u!54 &2108514710204913486
 Rigidbody:
