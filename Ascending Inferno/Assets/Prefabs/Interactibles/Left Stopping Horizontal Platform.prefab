@@ -119,16 +119,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abae580aa4c379040a7362e7cbae2efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -500
-  forwardsSpeed: 0
-  reverseSpeed: -500
+  Speed: -5
   rb: {fileID: 0}
   active: 0
   pattern: 0
   position1: {fileID: 5553759649834841763}
   position2: {fileID: 5553759649119052303}
   startPos: {fileID: 5992411003297601145}
+  towards2: 1
   player: {fileID: 0}
+  stopping: 1
 --- !u!54 &5553759648582830490
 Rigidbody:
   m_ObjectHideFlags: 0
