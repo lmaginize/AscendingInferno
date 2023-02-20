@@ -97,8 +97,6 @@ public class playerMovementBehaviour : MonoBehaviour
         {
             rb.drag = 0.5f;
             rb.angularDrag = 0.05f;
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
             rb.velocity = new Vector3(0, rb.velocity.y, hInput * moveSpeed);
             if (hInput < 0)
             {
