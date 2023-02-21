@@ -25,11 +25,7 @@ public class PlayerSpikeBehaviour : MonoBehaviour
      
         print("trigger colliding");
 
-        if (other.gameObject.CompareTag("Lava"))
-        {
-            gameObject.GetComponent<Collider>().enabled = false;
-            pmb.Lavaed();
-        }
+       
 
         if (other.gameObject.CompareTag("EndTrigger"))
         {
@@ -74,6 +70,7 @@ public class PlayerSpikeBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
+
         print("collision colliding");
 
         if (other.gameObject.CompareTag("Spike"))
@@ -87,5 +84,10 @@ public class PlayerSpikeBehaviour : MonoBehaviour
             pmb.Hazared();
         }
 
+        if (other.gameObject.CompareTag("Lava"))
+        {
+
+            pmb.Lavaed();
+        }
     }
 }
