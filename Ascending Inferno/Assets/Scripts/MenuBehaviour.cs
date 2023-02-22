@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuBehaviour : MonoBehaviour
 {
-    private void Update()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void Play()
+    //Load version 1
+    public void PlayVersion1()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void PlayVersion2()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void Quit()

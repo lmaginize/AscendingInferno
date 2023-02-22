@@ -26,9 +26,9 @@ TagManager:
   - Wall
   - Heat
   - MovingPlatform
-  - 
-  - 
-  - 
+  - Spikes
+  - Lava
+  - Player
   - 
   - 
   - 
