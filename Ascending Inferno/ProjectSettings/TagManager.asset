@@ -25,10 +25,10 @@ TagManager:
   - Ground
   - Wall
   - Heat
-  - 
-  - 
-  - 
-  - 
+  - MovingPlatform
+  - Spikes
+  - Lava
+  - Player
   - 
   - 
   - 

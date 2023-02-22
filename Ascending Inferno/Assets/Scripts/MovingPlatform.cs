@@ -154,7 +154,7 @@ public class MovingPlatform : MonoBehaviour
         if ((other.gameObject.CompareTag("Player")) && (pattern == 1))
         {
             player.GetComponent<Rigidbody>().useGravity = false;
-            player.GetComponent<playerMovementBehaviour>().jumpForce = 14;
+            player.GetComponent<playerMovementBehaviour>().jumpForce = 16;
         }
     }
     public void OnCollisionExit(Collision other)
@@ -162,7 +162,7 @@ public class MovingPlatform : MonoBehaviour
         if ((other.gameObject.CompareTag("Player")) && (pattern == 1))
         {
             player.GetComponent<Rigidbody>().useGravity = true;
-            player.GetComponent<playerMovementBehaviour>().jumpForce = 12;
+            player.GetComponent<playerMovementBehaviour>().jumpForce = 14;
         }
     }
 }

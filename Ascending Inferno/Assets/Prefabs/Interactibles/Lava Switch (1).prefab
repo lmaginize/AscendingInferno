@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1479033486653905949
 MeshFilter:
@@ -123,3 +123,4 @@ MonoBehaviour:
   Platform: {fileID: 0}
   Lava: {fileID: 0}
   player: {fileID: 0}
+  Button: {fileID: 8300000, guid: b614dfd2d297f834ea68b8bbc06f5e6c, type: 3}
